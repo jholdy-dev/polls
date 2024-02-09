@@ -56,7 +56,9 @@ export class Descktop extends Base {
       'main.ts',
     ]) {
       const sourcePath =
-        this.outdir + '/../../projenrc/electron-files/electron/' + electron_file
+        this.outdir +
+        '/../../projenrc/libs/electron-files/electron/' +
+        electron_file
       new SampleFile(this, `electron/${electron_file}`, {
         sourcePath,
       })
@@ -68,7 +70,9 @@ export class Descktop extends Base {
       'electron-vite.animate.svg',
     ]) {
       const sourcePath =
-        this.outdir + '/../../projenrc/electron-files/public/' + electron_file
+        this.outdir +
+        '/../../projenrc/libs/electron-files/public/' +
+        electron_file
       new SampleFile(this, `public/${electron_file}`, {
         sourcePath,
       })
