@@ -1,7 +1,7 @@
 import { JsonFile, SampleFile } from 'projen'
 import { TypeScriptProjectOptions } from 'projen/lib/typescript'
 import { deepMerge } from 'projen/lib/util'
-import { Base } from './base'
+import { Base } from '../base'
 import {
   main,
   app_module,
@@ -10,7 +10,7 @@ import {
   app_controller_spec,
   app_e2e_spec,
   jest_e2e_json,
-} from './nest-files/files-strings-nest'
+} from '../nest-files/files-strings-nest'
 import path from 'path'
 
 export interface NestJSAppProjectOptions extends TypeScriptProjectOptions {}

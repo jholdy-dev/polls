@@ -1,5 +1,5 @@
 import { TypeScriptAppProject } from 'projen/lib/typescript'
-import { NestJSAppProject } from './nestjs-app-project'
+import { NestJSAppProject } from './libs/nestjs-app-project'
 
 interface BackendOptions {
   readonly parent: TypeScriptAppProject
