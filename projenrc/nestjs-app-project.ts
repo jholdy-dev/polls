@@ -10,7 +10,7 @@ import {
   app_controller_spec,
   app_e2e_spec,
   jest_e2e_json,
-} from './files-strings-nest'
+} from './nest-files/files-strings-nest'
 import path from 'path'
 
 export interface NestJSAppProjectOptions extends TypeScriptProjectOptions {}
