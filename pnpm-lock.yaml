@@ -60,6 +60,37 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
+  '@libs/schema':
+    dependencies:
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+    devDependencies:
+      '@types/jest':
+        specifier: ^29.5.12
+        version: 29.5.12
+      '@types/node':
+        specifier: ^18
+        version: 18.19.15
+      constructs:
+        specifier: ^10.0.0
+        version: 10.3.0
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@18.19.15)(ts-node@10.9.2)
+      jest-junit:
+        specifier: ^15
+        version: 15.0.0
+      projen:
+        specifier: ^0.79.9
+        version: 0.79.9(constructs@10.3.0)
+      ts-jest:
+        specifier: ^29.1.2
+        version: 29.1.2(@babel/core@7.23.9)(jest@29.7.0)(typescript@5.3.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+
   '@projects/backend':
     dependencies:
       '@nestjs/common':
@@ -13820,3 +13851,7 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false

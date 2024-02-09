@@ -18,6 +18,8 @@ export class Schema extends Base {
       isLib: true,
     })
 
+    this.addDeps('zod')
+
     this.package.file.addOverride('main', 'dist/index.js')
   }
 }
