@@ -98,6 +98,22 @@
         }
       ]
     },
+    "descktop:dev": {
+      "name": "descktop:dev",
+      "steps": [
+        {
+          "exec": "pnpm --filter @project/descktop run dev"
+        }
+      ]
+    },
+    "descktop:test": {
+      "name": "descktop:test",
+      "steps": [
+        {
+          "exec": "pnpm --filter @project/descktop run test"
+        }
+      ]
+    },
     "eject": {
       "name": "eject",
       "description": "Remove projen from the project",

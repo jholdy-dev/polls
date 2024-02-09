@@ -1,10 +1,21 @@
 import { Root, Backend, Frontend } from './projenrc'
+import { Descktop } from './projenrc/descktop'
 
 const root = new Root()
 
 new Backend({ parent: root })
 
 new Frontend({ parent: root })
+
+new Descktop({ parent: root })
+
+root.addTask('descktop:dev', {
+  exec: 'pnpm --filter @project/descktop run dev',
+})
+
+root.addTask('descktop:test', {
+  exec: 'pnpm --filter @project/descktop run test',
+})
 
 root.addTask('backend:test', {
   exec: 'pnpm --filter @project/backend run test',
