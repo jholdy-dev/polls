@@ -26,12 +26,20 @@
     "target": "ES2019"
   },
   "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
-    ".projenrc.ts",
-    "projenrc/**/*.ts"
+    "@projects/**/*"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "referencies": [
+    {
+      "path": "@projects/backend"
+    }
+  ],
+  "paths": {
+    "@projects/*": [
+      "./@projects/*"
+    ]
+  },
+  "baseUrl": "."
 }

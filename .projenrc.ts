@@ -1,12 +1,19 @@
-import { typescript } from 'projen';
-const project = new typescript.TypeScriptProject({
-  defaultReleaseBranch: 'main',
-  name: 'polls',
-  projenrcTs: true,
+import { Root, Backend } from './projenrc'
 
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
-});
-project.synth();
+const root = new Root()
+
+root.addTask('backend:test', {
+  exec: 'pnpm --filter @project/backend run test',
+})
+
+root.addTask('backend:dev', {
+  exec: 'pnpm --filter @project/backend run start:dev',
+})
+
+root.addTask('backend:e2e', {
+  exec: 'pnpm --filter @project/backend run test:e2e',
+})
+
+new Backend({ parent: root })
+
+root.synth()
