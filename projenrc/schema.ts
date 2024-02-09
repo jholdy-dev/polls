@@ -9,7 +9,7 @@ export class Schema extends Base {
   constructor(options: SchemaProps) {
     super({
       ...options,
-      name: '@libs/schema',
+      name: '@lib/schema',
       outdir: 'schema',
       defaultReleaseBranch: 'main',
       release: false,

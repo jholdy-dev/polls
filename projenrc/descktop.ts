@@ -31,7 +31,7 @@ export class Descktop extends Base {
       preview: 'vite preview',
     })
 
-    this.addDeps('react', 'react-dom')
+    this.addDeps('react', 'react-dom', '@lib/schema@workspace:*')
 
     this.addDevDeps(
       '@types/react',

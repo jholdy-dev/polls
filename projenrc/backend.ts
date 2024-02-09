@@ -14,5 +14,7 @@ export class Backend extends NestJSAppProject {
       jest: false,
       outdir: 'backend',
     })
+
+    this.addDeps('@lib/schema@workspace:*')
   }
 }

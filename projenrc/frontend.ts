@@ -15,5 +15,7 @@ export class Frontend extends ReactTypeScriptProject {
       defaultReleaseBranch: 'main',
       release: false,
     })
+
+    this.addDeps('@lib/schema@workspace:*')
   }
 }
