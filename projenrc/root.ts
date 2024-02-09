@@ -40,6 +40,7 @@ export class Root extends TypeScriptAppProject {
 
       tsconfigJson?.addOverride('paths', {
         '@projects/*': ['./@projects/*'],
+        '@libs/*': ['./@libs/*'],
       })
 
       tsconfigJson?.addOverride('baseUrl', '.')
@@ -61,7 +62,7 @@ export class Root extends TypeScriptAppProject {
 
     new YamlFile(this, 'pnpm-workspace.yaml', {
       obj: {
-        packages: ['@projects/*'],
+        packages: ['@projects/*', '@libs/*'],
       },
     })
   }

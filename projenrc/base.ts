@@ -6,11 +6,11 @@ import {
 } from 'projen/lib/typescript'
 import fs from 'fs'
 
-export const getBaseOptions = (outdir: string) => ({
+export const getBaseOptions = (outdir: string, isLib: boolean = false) => ({
   projenrcTs: true,
   eslint: false,
   prettier: false,
-  outdir: `./@projects/${outdir}`,
+  outdir: isLib ? `./@libs/${outdir}` : `./@projects/${outdir}`,
   packageManager: NodePackageManager.PNPM,
 })
 
@@ -22,13 +22,15 @@ export const setBaseTsconfig = (project: TypeScriptProject) => {
   }
 }
 
+type BaseProps = { isLib?: boolean } & TypeScriptProjectOptions
+
 export class Base extends TypeScriptAppProject {
-  constructor(props: TypeScriptProjectOptions) {
+  constructor(props: BaseProps) {
     if (!props.outdir) throw new Error('outdir is required')
 
     super({
       ...props,
-      ...getBaseOptions(props.outdir),
+      ...getBaseOptions(props.outdir, props.isLib),
     })
 
     setBaseTsconfig(this)
@@ -42,37 +44,5 @@ export class Base extends TypeScriptAppProject {
         }
       })
     }
-  }
-
-  addJestAttributeToJsonFile(file: string) {
-    fs.readFile(file, 'utf8', (err, data) => {
-      if (err) {
-        console.error('Error reading JSON file:', err)
-        return
-      }
-
-      const config = JSON.parse(data)
-
-      config.jest = {
-        moduleFileExtensions: ['js', 'json', 'ts'],
-        rootDir: 'src',
-        testRegex: '.*\\.spec\\.ts$',
-        transform: {
-          '^.+\\.(t|j)s$': 'ts-jest',
-        },
-        collectCoverageFrom: ['**/*.(t|j)s'],
-        coverageDirectory: './coverage',
-        testEnvironment: 'node',
-      }
-
-      const newJsonContent = JSON.stringify(config, null, 2)
-
-      fs.writeFile(file, newJsonContent, 'utf8', (err) => {
-        if (err) {
-          console.error('Error writing to JSON file:', err)
-          return
-        }
-      })
-    })
   }
 }
