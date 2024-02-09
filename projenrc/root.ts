@@ -31,6 +31,9 @@ export class Root extends TypeScriptAppProject {
         {
           path: '@projects/backend',
         },
+        {
+          path: '@projects/frontend',
+        },
       ])
 
       tsconfigJson?.addOverride('include', ['@projects/**/*'])

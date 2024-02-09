@@ -120,6 +120,22 @@
         }
       ]
     },
+    "frontend:dev": {
+      "name": "frontend:dev",
+      "steps": [
+        {
+          "exec": "pnpm --filter @project/frontend run dev"
+        }
+      ]
+    },
+    "frontend:test": {
+      "name": "frontend:test",
+      "steps": [
+        {
+          "exec": "pnpm --filter @project/frontend run test"
+        }
+      ]
+    },
     "install": {
       "name": "install",
       "description": "Install project dependencies and update lockfile (non-frozen)",

@@ -33,6 +33,9 @@
   "referencies": [
     {
       "path": "@projects/backend"
+    },
+    {
+      "path": "@projects/frontend"
     }
   ],
   "paths": {
