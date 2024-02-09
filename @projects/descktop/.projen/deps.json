@@ -88,6 +88,11 @@
       "type": "build"
     },
     {
+      "name": "@lib/schema",
+      "version": "workspace:*",
+      "type": "runtime"
+    },
+    {
       "name": "react",
       "type": "runtime"
     },

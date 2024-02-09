@@ -94,6 +94,11 @@
       "type": "build"
     },
     {
+      "name": "@lib/schema",
+      "version": "workspace:*",
+      "type": "runtime"
+    },
+    {
       "name": "@nestjs/common",
       "type": "runtime"
     },

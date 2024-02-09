@@ -1,5 +1,5 @@
 {
-  "name": "@libs/schema",
+  "name": "@lib/schema",
   "scripts": {
     "build": "npx projen build",
     "compile": "npx projen compile",

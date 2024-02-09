@@ -93,6 +93,9 @@ importers:
 
   '@projects/backend':
     dependencies:
+      '@lib/schema':
+        specifier: workspace:*
+        version: link:../../@libs/schema
       '@nestjs/common':
         specifier: ^10.3.2
         version: 10.3.2(reflect-metadata@0.2.1)(rxjs@7.8.1)
@@ -181,6 +184,9 @@ importers:
 
   '@projects/descktop':
     dependencies:
+      '@lib/schema':
+        specifier: workspace:*
+        version: link:../../@libs/schema
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -254,6 +260,9 @@ importers:
 
   '@projects/frontend':
     dependencies:
+      '@lib/schema':
+        specifier: workspace:*
+        version: link:../../@libs/schema
       react:
         specifier: ^18.2.0
         version: 18.2.0
