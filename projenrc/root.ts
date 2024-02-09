@@ -20,6 +20,7 @@ export class Root extends TypeScriptAppProject {
       lines: ['20.11.0'],
     })
 
+    this.eslint?.ignorePatterns.push('.eslintrc.json')
     this.tryRemoveFile('.npmrc')
 
     for (const tsconfigName of ['tsconfig.json', 'tsconfig.dev.json']) {
