@@ -16,19 +16,32 @@ export class Backend extends NestJSAppProject {
       outdir: 'backend',
     })
 
-    this.gitignore.include('**.db-data**')
+    this.gitignore.include('./.db-data')
 
-    this.addDeps('@lib/schema@file:../../@libs/schema')
+    this.addDeps(
+      '@lib/schema@file:../../@libs/schema',
+      'sequelize',
+      'sequelize-typescript',
+      'pg-hstore',
+      'pg',
+      '@nestjs/config',
+      'dotenv',
+    )
+
+    this.addDevDeps('@types/sequelize')
 
     new SampleFile(this, 'Dockerfile', {
       contents: [
         'FROM --platform=amd64 node:20-alpine',
         'WORKDIR /app',
+        'COPY .env .',
         'COPY ./package.json ./',
         'COPY ./package-lock.json ./',
         'COPY node_modules ./node_modules',
-        'COPY ./dist .',
-        'CMD [ "node", "main" ]',
+        'COPY . .',
+        'EXPOSE 3000',
+        'RUN npm install -g pnpm',
+        'CMD [ "npm", "run", "start:dev" ]',
       ].join('\n'),
     })
 
@@ -42,18 +55,30 @@ export class Backend extends NestJSAppProject {
               context: '.',
               dockerfile: 'Dockerfile',
             },
+            volumes: ['.:/app'],
             ports: ['3000:3000'],
+            depends_on: ['db'],
           },
           db: {
             image: 'postgres:13',
             container_name: 'db',
             environment: {
-              POSTGRES_DB: 'db',
+              POSTGRES_DB: 'development_database_name',
               POSTGRES_USER: 'user',
               POSTGRES_PASSWORD: 'password',
             },
             volumes: ['.db-data:/var/lib/postgresql/data'],
             ports: ['5432:5432'],
+          },
+          pgadmin: {
+            image: 'dpage/pgadmin4',
+            container_name: 'pgadmin',
+            environment: {
+              PGADMIN_DEFAULT_EMAIL: 'admin@admin.com',
+              PGADMIN_DEFAULT_PASSWORD: 'pgadmin4',
+            },
+            ports: ['5050:80'],
+            depends_on: ['db'],
           },
         },
       },

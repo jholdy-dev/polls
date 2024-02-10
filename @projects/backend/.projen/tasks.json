@@ -294,13 +294,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@nestjs/cli,@nestjs/schematics,@nestjs/testing,@types/express,@types/jest,@types/node,@types/supertest,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,constructs,eslint,eslint-config-prettier,eslint-plugin-prettier,jest,prettier,projen,source-map-support,supertest,ts-jest,ts-loader,ts-node,tsconfig-paths,typescript,@nestjs/common,@nestjs/core,@nestjs/platform-express,reflect-metadata,rxjs"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@nestjs/cli,@nestjs/schematics,@nestjs/testing,@types/express,@types/jest,@types/node,@types/sequelize,@types/supertest,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,constructs,eslint,eslint-config-prettier,eslint-plugin-prettier,jest,prettier,projen,source-map-support,supertest,ts-jest,ts-loader,ts-node,tsconfig-paths,typescript,@nestjs/common,@nestjs/config,@nestjs/core,@nestjs/platform-express,dotenv,pg,pg-hstore,reflect-metadata,rxjs,sequelize,sequelize-typescript"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/jest @types/node @types/supertest @typescript-eslint/eslint-plugin @typescript-eslint/parser constructs eslint eslint-config-prettier eslint-plugin-prettier jest prettier projen source-map-support supertest ts-jest ts-loader ts-node tsconfig-paths typescript @nestjs/common @nestjs/core @nestjs/platform-express reflect-metadata rxjs"
+          "exec": "pnpm update @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/jest @types/node @types/sequelize @types/supertest @typescript-eslint/eslint-plugin @typescript-eslint/parser constructs eslint eslint-config-prettier eslint-plugin-prettier jest prettier projen source-map-support supertest ts-jest ts-loader ts-node tsconfig-paths typescript @nestjs/common @nestjs/config @nestjs/core @nestjs/platform-express dotenv pg pg-hstore reflect-metadata rxjs sequelize sequelize-typescript"
         },
         {
           "exec": "npx projen"
