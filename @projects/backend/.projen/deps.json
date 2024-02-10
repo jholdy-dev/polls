@@ -95,7 +95,7 @@
     },
     {
       "name": "@lib/schema",
-      "version": "workspace:*",
+      "version": "file:../../@libs/schema",
       "type": "runtime"
     },
     {

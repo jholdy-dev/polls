@@ -26,6 +26,10 @@ root.addTask('backend:dev', {
   exec: 'pnpm --filter @project/backend run start:dev',
 })
 
+root.addTask('backend:docker:compose:up', {
+  exec: 'pnpm --filter @project/backend run docker:up',
+})
+
 root.addTask('backend:e2e', {
   exec: 'pnpm --filter @project/backend run test:e2e',
 })

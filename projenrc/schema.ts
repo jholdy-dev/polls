@@ -20,6 +20,6 @@ export class Schema extends Base {
 
     this.addDeps('zod')
 
-    this.package.file.addOverride('main', 'dist/index.js')
+    this.package.file.addOverride('main', 'src/index.ts')
   }
 }

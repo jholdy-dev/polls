@@ -20,6 +20,10 @@ export class Root extends TypeScriptAppProject {
       lines: ['20.11.0'],
     })
 
+    this.gitignore.include('**release**')
+    this.gitignore.exclude('**.db-data**')
+    this.gitignore.include('**packages-lock**')
+
     this.eslint?.ignorePatterns.push('.eslintrc.json')
     this.tryRemoveFile('.npmrc')
 
@@ -63,6 +67,7 @@ export class Root extends TypeScriptAppProject {
     new YamlFile(this, 'pnpm-workspace.yaml', {
       obj: {
         packages: ['@projects/*', '@libs/*'],
+        lockfile: true,
       },
     })
   }

@@ -8,6 +8,14 @@
         }
       ]
     },
+    "backend:docker:compose:up": {
+      "name": "backend:docker:compose:up",
+      "steps": [
+        {
+          "exec": "pnpm --filter @project/backend run docker:up"
+        }
+      ]
+    },
     "backend:e2e": {
       "name": "backend:e2e",
       "steps": [

@@ -36,6 +36,35 @@
         }
       ]
     },
+    "docker:up": {
+      "name": "docker:up",
+      "steps": [
+        {
+          "name": "remove node_modules",
+          "exec": "rm -rf node_modules"
+        },
+        {
+          "name": "remove package-lock.json",
+          "exec": "rm -rf package-lock.json"
+        },
+        {
+          "name": "npm install",
+          "exec": "npm install"
+        },
+        {
+          "name": "Start the backend services",
+          "exec": "docker-compose up"
+        },
+        {
+          "name": "remove node_modules",
+          "exec": "rm -rf node_modules"
+        },
+        {
+          "name": "remove package-lock.json",
+          "exec": "rm -rf package-lock.json"
+        }
+      ]
+    },
     "format": {
       "name": "format",
       "steps": [

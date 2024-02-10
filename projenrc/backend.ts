@@ -1,5 +1,6 @@
 import { TypeScriptAppProject } from 'projen/lib/typescript'
 import { NestJSAppProject } from './libs/nestjs-app-project'
+import { SampleFile, YamlFile } from 'projen'
 
 interface BackendOptions {
   readonly parent: TypeScriptAppProject
@@ -15,6 +16,73 @@ export class Backend extends NestJSAppProject {
       outdir: 'backend',
     })
 
-    this.addDeps('@lib/schema@workspace:*')
+    this.gitignore.include('**.db-data**')
+
+    this.addDeps('@lib/schema@file:../../@libs/schema')
+
+    new SampleFile(this, 'Dockerfile', {
+      contents: [
+        'FROM --platform=amd64 node:20-alpine',
+        'WORKDIR /app',
+        'COPY ./package.json ./',
+        'COPY ./package-lock.json ./',
+        'COPY node_modules ./node_modules',
+        'COPY ./dist .',
+        'CMD [ "node", "main" ]',
+      ].join('\n'),
+    })
+
+    new YamlFile(this, 'docker-compose.yml', {
+      obj: {
+        version: '3.8',
+        services: {
+          backend: {
+            container_name: 'backend',
+            build: {
+              context: '.',
+              dockerfile: 'Dockerfile',
+            },
+            ports: ['3000:3000'],
+          },
+          db: {
+            image: 'postgres:13',
+            container_name: 'db',
+            environment: {
+              POSTGRES_DB: 'db',
+              POSTGRES_USER: 'user',
+              POSTGRES_PASSWORD: 'password',
+            },
+            volumes: ['.db-data:/var/lib/postgresql/data'],
+            ports: ['5432:5432'],
+          },
+        },
+      },
+    })
+
+    const preSteps = [
+      {
+        name: 'remove node_modules',
+        exec: 'rm -rf node_modules',
+      },
+      {
+        name: 'remove package-lock.json',
+        exec: 'rm -rf package-lock.json',
+      },
+    ]
+
+    this.addTask('docker:up', {
+      steps: [
+        ...preSteps,
+        {
+          name: 'npm install',
+          exec: 'npm install',
+        },
+        {
+          name: 'Start the backend services',
+          exec: 'docker-compose up',
+        },
+        ...preSteps,
+      ],
+    })
   }
 }

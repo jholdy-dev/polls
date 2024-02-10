@@ -4,6 +4,7 @@
     "build": "npx projen build",
     "compile": "npx projen compile",
     "default": "npx projen default",
+    "docker:up": "npx projen docker:up",
     "format": "npx projen format",
     "lint": "npx projen lint",
     "package": "npx projen package",
@@ -49,7 +50,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@lib/schema": "workspace:*",
+    "@lib/schema": "file:../../@libs/schema",
     "@nestjs/common": "^10.3.2",
     "@nestjs/core": "^10.3.2",
     "@nestjs/platform-express": "^10.3.2",

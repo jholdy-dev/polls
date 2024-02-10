@@ -46,6 +46,9 @@ junit.xml
 /dist/
 !/.eslintrc.json
 !/.nvmrc
+!**release**
+**.db-data**
+!**packages-lock**
 !/.prettierrc.json
 !/pnpm-workspace.yaml
 !/.projenrc.ts

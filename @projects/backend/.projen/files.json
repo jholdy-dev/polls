@@ -7,6 +7,7 @@
     ".projen/deps.json",
     ".projen/files.json",
     ".projen/tasks.json",
+    "docker-compose.yml",
     "LICENSE",
     "nest-cli.json",
     "tsconfig.build.json",

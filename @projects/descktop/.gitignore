@@ -38,3 +38,5 @@ junit.xml
 !/src/
 /lib
 /dist/
+!**release**
+!**dist-electron**

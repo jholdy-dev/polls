@@ -3,3 +3,4 @@
 packages:
   - "@projects/*"
   - "@libs/*"
+lockfile: true

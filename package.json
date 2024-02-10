@@ -2,6 +2,7 @@
   "name": "hoyeah-monorepo",
   "scripts": {
     "backend:dev": "npx projen backend:dev",
+    "backend:docker:compose:up": "npx projen backend:docker:compose:up",
     "backend:e2e": "npx projen backend:e2e",
     "backend:test": "npx projen backend:test",
     "build": "npx projen build",

@@ -38,3 +38,5 @@ jspm_packages/
 /dist/
 !/nest-cli.json
 !/tsconfig.build.json
+!**.db-data**
+!/docker-compose.yml

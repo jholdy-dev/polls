@@ -8,6 +8,7 @@
 /.projen/deps.json linguist-generated
 /.projen/files.json linguist-generated
 /.projen/tasks.json linguist-generated
+/docker-compose.yml linguist-generated
 /LICENSE linguist-generated
 /nest-cli.json linguist-generated
 /package.json linguist-generated

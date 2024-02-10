@@ -21,6 +21,8 @@ export class Descktop extends Base {
     this.removeTask('build')
     this.removeTask('lint')
     this.removeTask('preview')
+    this.gitignore.include('**release**')
+    this.gitignore.include('**dist-electron**')
 
     this.package.file.addOverride('main', 'dist-electron/main.js')
 
