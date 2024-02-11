@@ -4,7 +4,7 @@
       "name": "backend:dev",
       "steps": [
         {
-          "exec": "pnpm --filter @project/backend run start:dev"
+          "exec": "cd packages/apps/backend && yarn start:dev"
         }
       ]
     },
@@ -12,7 +12,7 @@
       "name": "backend:docker:compose:up",
       "steps": [
         {
-          "exec": "pnpm --filter @project/backend run docker:up"
+          "exec": "cd packages/apps/backend && yarn docker:up"
         }
       ]
     },
@@ -20,7 +20,7 @@
       "name": "backend:e2e",
       "steps": [
         {
-          "exec": "pnpm --filter @project/backend run test:e2e"
+          "exec": "cd packages/apps/backend && yarn test:e2e"
         }
       ]
     },
@@ -28,7 +28,7 @@
       "name": "backend:test",
       "steps": [
         {
-          "exec": "pnpm --filter @project/backend run test"
+          "exec": "cd packages/apps/backend && yarn test"
         }
       ]
     },
@@ -106,19 +106,19 @@
         }
       ]
     },
-    "descktop:dev": {
-      "name": "descktop:dev",
+    "desktop:dev": {
+      "name": "desktop:dev",
       "steps": [
         {
-          "exec": "pnpm --filter @project/descktop run dev"
+          "exec": "cd packages/apps/desktop && yarn dev"
         }
       ]
     },
-    "descktop:test": {
-      "name": "descktop:test",
+    "desktop:test": {
+      "name": "desktop:test",
       "steps": [
         {
-          "exec": "pnpm --filter @project/descktop run test"
+          "exec": "cd packages/apps/desktop && yarn test"
         }
       ]
     },
@@ -148,7 +148,7 @@
       "name": "frontend:dev",
       "steps": [
         {
-          "exec": "pnpm --filter @project/frontend run dev"
+          "exec": "cd packages/apps/frontend && yarn dev"
         }
       ]
     },
@@ -156,7 +156,7 @@
       "name": "frontend:test",
       "steps": [
         {
-          "exec": "pnpm --filter @project/frontend run test"
+          "exec": "cd packages/apps/frontend && yarn test"
         }
       ]
     },
@@ -224,7 +224,7 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,constructs,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,jest,jest-junit,prettier,projen,ts-jest,ts-node,typescript"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,prettier,projen,ts-jest,ts-node,typescript"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"

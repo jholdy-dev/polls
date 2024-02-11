@@ -1,4 +1,4 @@
-import { TextFile, YamlFile, JsonFile } from 'projen'
+import { TextFile, JsonFile } from 'projen'
 import { NodePackageManager } from 'projen/lib/javascript'
 import { TypeScriptAppProject } from 'projen/lib/typescript'
 
@@ -10,9 +10,8 @@ export class Root extends TypeScriptAppProject {
       projenrcTs: true,
       mergify: false,
       prettier: true,
-      srcdir: 'projenrc',
-      npmRegistryUrl: 'https://registry.npmjs.org/',
       packageManager: NodePackageManager.PNPM,
+      srcdir: 'projenrc',
       sampleCode: true,
     })
 
@@ -31,6 +30,10 @@ export class Root extends TypeScriptAppProject {
       const tsconfigJson = this.tryFindObjectFile(tsconfigName)
 
       tsconfigJson?.addDeletionOverride('compilerOptions.rootDir')
+      tsconfigJson?.addOverride(
+        'compilerOptions.strictPropertyInitialization',
+        true,
+      )
       tsconfigJson?.addOverride('referencies', [
         {
           path: '@projects/backend',
@@ -40,12 +43,7 @@ export class Root extends TypeScriptAppProject {
         },
       ])
 
-      tsconfigJson?.addOverride('include', ['@projects/**/*'])
-
-      tsconfigJson?.addOverride('paths', {
-        '@projects/*': ['./@projects/*'],
-        '@libs/*': ['./@libs/*'],
-      })
+      tsconfigJson?.addOverride('include', ['packages/**/*'])
 
       tsconfigJson?.addOverride('baseUrl', '.')
     }
@@ -61,13 +59,6 @@ export class Root extends TypeScriptAppProject {
         semi: false,
         singleQuote: true,
         trailingComma: 'all',
-      },
-    })
-
-    new YamlFile(this, 'pnpm-workspace.yaml', {
-      obj: {
-        packages: ['@projects/*', '@libs/*'],
-        lockfile: true,
       },
     })
   }

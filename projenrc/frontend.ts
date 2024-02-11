@@ -1,6 +1,7 @@
 import { ReactTypeScriptProject } from 'projen/lib/web'
 import { getBaseOptions } from './base'
 import { TypeScriptProject } from 'projen/lib/typescript'
+import { NodePackageManager } from 'projen/lib/javascript'
 
 type FrontendProps = {
   parent: TypeScriptProject
@@ -11,11 +12,12 @@ export class Frontend extends ReactTypeScriptProject {
     super({
       ...getBaseOptions('frontend'),
       ...props,
-      name: '@project/frontend',
+      name: '@apps/frontend',
+      packageManager: NodePackageManager.PNPM,
       defaultReleaseBranch: 'main',
       release: false,
     })
 
-    this.addDeps('@lib/schema@workspace:*')
+    this.addDeps('@lib/schema@file:../../libs/schema')
   }
 }

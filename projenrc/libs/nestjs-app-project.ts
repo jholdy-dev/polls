@@ -22,6 +22,7 @@ export class NestJSAppProject extends Base {
         compilerOptions: {
           noImplicitAny: true,
           declaration: true,
+          strictPropertyInitialization: false,
           emitDecoratorMetadata: true,
           experimentalDecorators: true,
           allowSyntheticDefaultImports: true,
@@ -40,6 +41,7 @@ export class NestJSAppProject extends Base {
           baseUrl: './',
           target: 'es2022',
           sourceMap: false,
+          strictPropertyInitialization: false,
           experimentalDecorators: undefined,
           emitDecoratorMetadata: undefined,
           allowSyntheticDefaultImports: undefined,
@@ -62,10 +64,13 @@ export class NestJSAppProject extends Base {
 
     super({ ...mergedOptions })
 
-    const src_index = path.join(__dirname, '../@projects/backend/src/index.ts')
+    const src_index = path.join(
+      __dirname,
+      '../packages/apps/backend/src/index.ts',
+    )
     const test_hello = path.join(
       __dirname,
-      '../@projects/backend/test/hello.test.ts',
+      '../packages/apps/test/hello.test.ts',
     )
     for (const file of [src_index, test_hello]) {
       this.removeFile(file)

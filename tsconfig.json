@@ -27,7 +27,7 @@
     "target": "ES2019"
   },
   "include": [
-    "@projects/**/*"
+    "packages/**/*"
   ],
   "exclude": [],
   "referencies": [
@@ -38,13 +38,5 @@
       "path": "@projects/frontend"
     }
   ],
-  "paths": {
-    "@projects/*": [
-      "./@projects/*"
-    ],
-    "@libs/*": [
-      "./@libs/*"
-    ]
-  },
   "baseUrl": "."
 }

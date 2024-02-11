@@ -1,6 +1,7 @@
 import { TypeScriptAppProject } from 'projen/lib/typescript'
 import { Base } from './base'
 import { SampleFile } from 'projen'
+import { NodePackageManager } from 'projen/lib/javascript'
 
 type DescktopProps = {
   parent: TypeScriptAppProject
@@ -10,12 +11,13 @@ export class Descktop extends Base {
   constructor(props: DescktopProps) {
     super({
       ...props,
-      name: '@project/descktop',
+      name: '@apps/descktop',
       outdir: 'descktop',
       defaultReleaseBranch: 'main',
       release: false,
       projenrcTs: true,
       testdir: 'src',
+      packageManager: NodePackageManager.PNPM,
     })
 
     this.removeTask('build')
@@ -33,7 +35,7 @@ export class Descktop extends Base {
       preview: 'vite preview',
     })
 
-    this.addDeps('react', 'react-dom', '@lib/schema@workspace:*')
+    this.addDeps('react', 'react-dom', '@lib/schema@file:../../libs/schema')
 
     this.addDevDeps(
       '@types/react',
@@ -59,7 +61,7 @@ export class Descktop extends Base {
     ]) {
       const sourcePath =
         this.outdir +
-        '/../../projenrc/libs/electron-files/electron/' +
+        '/../../../projenrc/libs/electron-files/electron/' +
         electron_file
       new SampleFile(this, `electron/${electron_file}`, {
         sourcePath,
@@ -73,7 +75,7 @@ export class Descktop extends Base {
     ]) {
       const sourcePath =
         this.outdir +
-        '/../../projenrc/libs/electron-files/public/' +
+        '/../../../projenrc/libs/electron-files/public/' +
         electron_file
       new SampleFile(this, `public/${electron_file}`, {
         sourcePath,

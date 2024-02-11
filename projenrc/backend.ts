@@ -1,6 +1,7 @@
 import { TypeScriptAppProject } from 'projen/lib/typescript'
 import { NestJSAppProject } from './libs/nestjs-app-project'
 import { SampleFile, YamlFile } from 'projen'
+import { NodePackageManager } from 'projen/lib/javascript'
 
 interface BackendOptions {
   readonly parent: TypeScriptAppProject
@@ -10,38 +11,40 @@ export class Backend extends NestJSAppProject {
   constructor({ parent }: BackendOptions) {
     super({
       defaultReleaseBranch: 'main',
-      name: '@project/backend',
+      name: '@app/backend',
       parent,
       jest: false,
       outdir: 'backend',
+      packageManager: NodePackageManager.PNPM,
     })
 
     this.gitignore.include('./.db-data')
 
     this.addDeps(
-      '@lib/schema@file:../../@libs/schema',
+      '@lib/schema@file:../../libs/schema',
       'sequelize',
       'sequelize-typescript',
       'pg-hstore',
       'pg',
       '@nestjs/config',
       'dotenv',
+      '@nestjs/swagger',
     )
 
-    this.addDevDeps('@types/sequelize')
+    this.addDevDeps('@types/sequelize', 'projen', 'constructs')
 
     new SampleFile(this, 'Dockerfile', {
       contents: [
         'FROM --platform=amd64 node:20-alpine',
         'WORKDIR /app',
+        'RUN npm install -g pnpm',
         'COPY .env .',
         'COPY ./package.json ./',
-        'COPY ./package-lock.json ./',
-        'COPY node_modules ./node_modules',
+        'COPY ./pnpm-lock.yaml ./',
+        'COPY ./node_modules ./node_modules',
         'COPY . .',
         'EXPOSE 3000',
-        'RUN npm install -g pnpm',
-        'CMD [ "npm", "run", "start:dev" ]',
+        'CMD [ "pnpm", "run", "start:dev" ]',
       ].join('\n'),
     })
 
@@ -63,7 +66,7 @@ export class Backend extends NestJSAppProject {
             image: 'postgres:13',
             container_name: 'db',
             environment: {
-              POSTGRES_DB: 'development_database_name',
+              POSTGRES_DB: 'development',
               POSTGRES_USER: 'user',
               POSTGRES_PASSWORD: 'password',
             },
@@ -84,29 +87,12 @@ export class Backend extends NestJSAppProject {
       },
     })
 
-    const preSteps = [
-      {
-        name: 'remove node_modules',
-        exec: 'rm -rf node_modules',
-      },
-      {
-        name: 'remove package-lock.json',
-        exec: 'rm -rf package-lock.json',
-      },
-    ]
-
     this.addTask('docker:up', {
       steps: [
-        ...preSteps,
-        {
-          name: 'npm install',
-          exec: 'npm install',
-        },
         {
           name: 'Start the backend services',
-          exec: 'docker-compose up',
+          exec: 'docker-compose up --build',
         },
-        ...preSteps,
       ],
     })
   }

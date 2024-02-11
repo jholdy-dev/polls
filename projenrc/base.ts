@@ -1,4 +1,3 @@
-import { NodePackageManager } from 'projen/lib/javascript'
 import {
   TypeScriptAppProject,
   TypeScriptProject,
@@ -10,15 +9,14 @@ export const getBaseOptions = (outdir: string, isLib: boolean = false) => ({
   projenrcTs: true,
   eslint: false,
   prettier: false,
-  outdir: isLib ? `./@libs/${outdir}` : `./@projects/${outdir}`,
-  packageManager: NodePackageManager.PNPM,
+  outdir: isLib ? `./packages/libs/${outdir}` : `./packages/apps/${outdir}`,
 })
 
 export const setBaseTsconfig = (project: TypeScriptProject) => {
   for (const tsconfigName of ['tsconfig.json', 'tsconfig.dev.json']) {
     const tsconfigJson = project.tryFindObjectFile(tsconfigName)
 
-    tsconfigJson?.addOverride('extends', '../../tsconfig.json')
+    tsconfigJson?.addOverride('extends', '../../../tsconfig.json')
   }
 }
 

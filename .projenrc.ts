@@ -10,36 +10,36 @@ new Descktop({ parent: root })
 
 new Schema({ parent: root })
 
-root.addTask('descktop:dev', {
-  exec: 'pnpm --filter @project/descktop run dev',
+root.addTask('desktop:dev', {
+  exec: 'cd packages/apps/desktop && yarn dev',
 })
 
-root.addTask('descktop:test', {
-  exec: 'pnpm --filter @project/descktop run test',
+root.addTask('desktop:test', {
+  exec: 'cd packages/apps/desktop && yarn test',
 })
 
 root.addTask('backend:test', {
-  exec: 'pnpm --filter @project/backend run test',
+  exec: 'cd packages/apps/backend && yarn test',
 })
 
 root.addTask('backend:dev', {
-  exec: 'pnpm --filter @project/backend run start:dev',
+  exec: 'cd packages/apps/backend && yarn start:dev',
 })
 
 root.addTask('backend:docker:compose:up', {
-  exec: 'pnpm --filter @project/backend run docker:up',
+  exec: 'cd packages/apps/backend && yarn docker:up',
 })
 
 root.addTask('backend:e2e', {
-  exec: 'pnpm --filter @project/backend run test:e2e',
+  exec: 'cd packages/apps/backend && yarn test:e2e',
 })
 
 root.addTask('frontend:test', {
-  exec: 'pnpm --filter @project/frontend run test',
+  exec: 'cd packages/apps/frontend && yarn test',
 })
 
 root.addTask('frontend:dev', {
-  exec: 'pnpm --filter @project/frontend run dev',
+  exec: 'cd packages/apps/frontend && yarn dev',
 })
 
 root.synth()
