@@ -1,0 +1,307 @@
+{
+  "tasks": {
+    "build": {
+      "name": "build",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Build the project",
+          "exec": "nest build"
+        }
+      ]
+    },
+    "compile": {
+      "name": "compile",
+      "description": "Only compile",
+      "steps": [
+        {
+          "exec": "tsc --build"
+        }
+      ]
+    },
+    "default": {
+      "name": "default",
+      "description": "Synthesize project files",
+      "steps": [
+        {
+          "exec": "npx projen default",
+          "cwd": "../../.."
+        }
+      ]
+    },
+    "docker:up": {
+      "name": "docker:up",
+      "steps": [
+        {
+          "name": "Start the backend services",
+          "exec": "docker-compose up --build"
+        }
+      ]
+    },
+    "format": {
+      "name": "format",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Format the project",
+          "exec": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+        }
+      ]
+    },
+    "install": {
+      "name": "install",
+      "description": "Install project dependencies and update lockfile (non-frozen)",
+      "steps": [
+        {
+          "exec": "pnpm i --no-frozen-lockfile"
+        }
+      ]
+    },
+    "install:ci": {
+      "name": "install:ci",
+      "description": "Install project dependencies using frozen lockfile",
+      "steps": [
+        {
+          "exec": "pnpm i --frozen-lockfile"
+        }
+      ]
+    },
+    "lint": {
+      "name": "lint",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Lint the project",
+          "exec": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+        }
+      ]
+    },
+    "package": {
+      "name": "package",
+      "description": "Creates the distribution package"
+    },
+    "post-compile": {
+      "name": "post-compile",
+      "description": "Runs after successful compilation"
+    },
+    "post-upgrade": {
+      "name": "post-upgrade",
+      "description": "Runs after upgrading dependencies"
+    },
+    "pre-compile": {
+      "name": "pre-compile",
+      "description": "Prepare the project for compilation"
+    },
+    "start": {
+      "name": "start",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Start the project",
+          "exec": "nest start"
+        }
+      ]
+    },
+    "start:debug": {
+      "name": "start:debug",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Start the project in debug mode",
+          "exec": "nest start --debug --watch"
+        }
+      ]
+    },
+    "start:dev": {
+      "name": "start:dev",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Start the project in development mode",
+          "exec": "nest start --watch"
+        }
+      ]
+    },
+    "start:prod": {
+      "name": "start:prod",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Start the project in production mode",
+          "exec": "node dist/main"
+        }
+      ]
+    },
+    "test": {
+      "name": "test",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Test the project",
+          "exec": "jest"
+        }
+      ]
+    },
+    "test:cov": {
+      "name": "test:cov",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Test the project coverage",
+          "exec": "jest --coverage"
+        }
+      ]
+    },
+    "test:debug": {
+      "name": "test:debug",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Debug the project tests",
+          "exec": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+        }
+      ]
+    },
+    "test:e2e": {
+      "name": "test:e2e",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Test the project end-to-end",
+          "exec": "jest --config ./test/jest-e2e.json"
+        }
+      ]
+    },
+    "test:watch": {
+      "name": "test:watch",
+      "steps": [
+        {
+          "name": "remove dist",
+          "exec": "rm -rf dist"
+        },
+        {
+          "name": "remove tsbuildinfo",
+          "exec": "rm -rf tsconfig.build.tsbuildinfo"
+        },
+        {
+          "name": "Watch the project tests",
+          "exec": "jest --watch"
+        }
+      ]
+    },
+    "upgrade": {
+      "name": "upgrade",
+      "description": "upgrade dependencies",
+      "env": {
+        "CI": "0"
+      },
+      "steps": [
+        {
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@nestjs/cli,@nestjs/schematics,@nestjs/testing,@types/express,@types/jest,@types/node,@types/sequelize,@types/supertest,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,constructs,eslint,eslint-config-prettier,eslint-plugin-prettier,jest,prettier,projen,source-map-support,supertest,ts-jest,ts-loader,ts-node,tsconfig-paths,typescript,@lib/schema,@nestjs/common,@nestjs/config,@nestjs/core,@nestjs/platform-express,@nestjs/swagger,dotenv,pg,pg-hstore,reflect-metadata,rxjs,sequelize,sequelize-typescript"
+        },
+        {
+          "exec": "pnpm i --no-frozen-lockfile"
+        },
+        {
+          "exec": "pnpm update @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/jest @types/node @types/sequelize @types/supertest @typescript-eslint/eslint-plugin @typescript-eslint/parser constructs eslint eslint-config-prettier eslint-plugin-prettier jest prettier projen source-map-support supertest ts-jest ts-loader ts-node tsconfig-paths typescript @lib/schema @nestjs/common @nestjs/config @nestjs/core @nestjs/platform-express @nestjs/swagger dotenv pg pg-hstore reflect-metadata rxjs sequelize sequelize-typescript"
+        },
+        {
+          "exec": "npx projen"
+        },
+        {
+          "spawn": "post-upgrade"
+        }
+      ]
+    },
+    "watch": {
+      "name": "watch",
+      "description": "Watch & compile in the background",
+      "steps": [
+        {
+          "exec": "tsc --build -w"
+        }
+      ]
+    }
+  },
+  "env": {
+    "PATH": "$(pnpm -c exec \"node --print process.env.PATH\")"
+  },
+  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
+}
