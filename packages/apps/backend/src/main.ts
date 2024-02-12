@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
+import { patchNestJsSwagger } from 'nestjs-zod'
 import { ZodFilter } from './core/filters/zod-filter'
 
 async function bootstrap() {
@@ -10,6 +11,7 @@ async function bootstrap() {
     .setDescription('The polls API description')
     .setVersion('1.0')
     .build()
+  patchNestJsSwagger()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
   app.useGlobalFilters(new ZodFilter())
