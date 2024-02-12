@@ -75,6 +75,10 @@
       "type": "runtime"
     },
     {
+      "name": "@mui/icons-material",
+      "type": "runtime"
+    },
+    {
       "name": "@mui/material",
       "type": "runtime"
     },
@@ -117,6 +121,10 @@
     },
     {
       "name": "web-vitals",
+      "type": "runtime"
+    },
+    {
+      "name": "zustand",
       "type": "runtime"
     }
   ],

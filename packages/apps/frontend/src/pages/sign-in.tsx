@@ -10,6 +10,7 @@ import { LoginRequest, loginRequestSchema } from '@lib/schema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginService } from '../services'
+import { useAuthStore } from '../stores'
 
 export default function SignIn() {
   const {
@@ -19,11 +20,13 @@ export default function SignIn() {
   } = useForm<LoginRequest>({
     resolver: zodResolver(loginRequestSchema),
   })
+  const { setUser } = useAuthStore()
 
   async function login(data: LoginRequest) {
     try {
       const result = await loginService.login(data)
       console.log(result)
+      setUser(result.user)
     } catch (error) {
       console.error(error)
     }

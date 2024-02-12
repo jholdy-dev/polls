@@ -31,6 +31,8 @@ export class Frontend extends ReactTypeScriptProject {
       'react-hook-form',
       '@hookform/resolvers',
       'axios',
+      'zustand',
+      '@mui/icons-material',
     )
   }
 }
