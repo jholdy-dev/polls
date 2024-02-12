@@ -1,5 +1,5 @@
 {
-  "name": "hoyeah-monorepo",
+  "name": "monorepo",
   "scripts": {
     "backend:dev": "npx projen backend:dev",
     "backend:docker:compose:up": "npx projen backend:docker:compose:up",
