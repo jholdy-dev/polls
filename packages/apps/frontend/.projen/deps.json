@@ -54,8 +54,40 @@
       "type": "override"
     },
     {
+      "name": "@emotion/react",
+      "type": "runtime"
+    },
+    {
+      "name": "@emotion/styled",
+      "type": "runtime"
+    },
+    {
+      "name": "@fontsource/roboto",
+      "type": "runtime"
+    },
+    {
+      "name": "@hookform/resolvers",
+      "type": "runtime"
+    },
+    {
       "name": "@lib/schema",
       "version": "file:../../libs/schema",
+      "type": "runtime"
+    },
+    {
+      "name": "@mui/material",
+      "type": "runtime"
+    },
+    {
+      "name": "axios",
+      "type": "runtime"
+    },
+    {
+      "name": "localforage",
+      "type": "runtime"
+    },
+    {
+      "name": "match-sorter",
       "type": "runtime"
     },
     {
@@ -67,8 +99,20 @@
       "type": "runtime"
     },
     {
+      "name": "react-hook-form",
+      "type": "runtime"
+    },
+    {
+      "name": "react-router-dom",
+      "type": "runtime"
+    },
+    {
       "name": "react-scripts",
       "version": "^5",
+      "type": "runtime"
+    },
+    {
+      "name": "sort-by",
       "type": "runtime"
     },
     {

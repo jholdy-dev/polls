@@ -18,6 +18,19 @@ export class Frontend extends ReactTypeScriptProject {
       release: false,
     })
 
-    this.addDeps('@lib/schema@file:../../libs/schema')
+    this.addDeps(
+      '@lib/schema@file:../../libs/schema',
+      '@mui/material',
+      '@emotion/react',
+      '@emotion/styled',
+      '@fontsource/roboto',
+      'react-router-dom',
+      'localforage',
+      'match-sorter',
+      'sort-by',
+      'react-hook-form',
+      '@hookform/resolvers',
+      'axios',
+    )
   }
 }

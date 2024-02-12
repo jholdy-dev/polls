@@ -29,23 +29,13 @@ export class Backend extends NestJSAppProject {
       '@nestjs/config',
       'dotenv',
       '@nestjs/swagger',
-      '@nestjs/passport',
-      'passport',
-      'passport-local',
       'bcrypt',
       '@nestjs/jwt',
-      'passport-jwt',
       'zod',
       'nestjs-zod',
     )
 
-    this.addDevDeps(
-      '@types/sequelize',
-      '@types/passport-local',
-      '@types/bcrypt',
-      '@types/passport-jwt',
-      'nodemon',
-    )
+    this.addDevDeps('@types/sequelize', '@types/bcrypt', 'nodemon')
 
     new YamlFile(this, 'docker-compose.yml', {
       obj: {
@@ -84,7 +74,7 @@ export class Backend extends NestJSAppProject {
         },
         {
           name: 'Start the backend services',
-          exec: 'pnpm run start:dev',
+          exec: 'pnpm run start:debug',
         },
       ],
     })

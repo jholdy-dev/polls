@@ -57,7 +57,25 @@ root.addTask('frontend:test', {
 })
 
 root.addTask('frontend:dev', {
-  exec: 'cd packages/apps/frontend && pnpm run dev',
+  steps: [
+    {
+      name: 'build dependence on the backend',
+      exec: 'cd packages/libs/schema && pnpm run build',
+    },
+    {
+      name: 'remove caches dist and node_modules',
+      exec: 'cd packages/apps/frontend && rm -rf dist node_modules',
+    },
+
+    {
+      name: 'dependencies installation',
+      exec: 'npx projen',
+    },
+    {
+      name: 'Start the frontend services',
+      exec: 'cd packages/apps/frontend && pnpm run dev',
+    },
+  ],
 })
 
 root.synth()
