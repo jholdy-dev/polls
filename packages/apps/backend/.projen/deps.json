@@ -29,14 +29,6 @@
       "type": "build"
     },
     {
-      "name": "@types/passport-jwt",
-      "type": "build"
-    },
-    {
-      "name": "@types/passport-local",
-      "type": "build"
-    },
-    {
       "name": "@types/sequelize",
       "type": "build"
     },
@@ -135,10 +127,6 @@
       "type": "runtime"
     },
     {
-      "name": "@nestjs/passport",
-      "type": "runtime"
-    },
-    {
       "name": "@nestjs/platform-express",
       "type": "runtime"
     },
@@ -156,18 +144,6 @@
     },
     {
       "name": "nestjs-zod",
-      "type": "runtime"
-    },
-    {
-      "name": "passport",
-      "type": "runtime"
-    },
-    {
-      "name": "passport-jwt",
-      "type": "runtime"
-    },
-    {
-      "name": "passport-local",
       "type": "runtime"
     },
     {

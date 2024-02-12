@@ -1,22 +1,14 @@
-import { Controller, Body, Post, UseGuards } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport'
+import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common'
 import { AuthService } from './auth.service'
-import { ZodPipe } from 'src/core/pipes/zod-pipe'
-import { loginRequestSchema } from '@lib/schema'
-import { ApiTags } from '@nestjs/swagger'
-import { LoginRequestDto } from './dto/login-request'
+import { LoginRequest } from '@lib/schema'
 
-@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @UseGuards(AuthGuard('local'))
+  @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(
-    @Body(new ZodPipe(loginRequestSchema))
-    loginRequest: LoginRequestDto,
-  ) {
-    return await this.authService.login(loginRequest)
+  signIn(@Body() signInDto: LoginRequest) {
+    return this.authService.login(signInDto)
   }
 }
