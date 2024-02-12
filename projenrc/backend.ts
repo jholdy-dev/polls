@@ -36,6 +36,7 @@ export class Backend extends NestJSAppProject {
       '@nestjs/jwt',
       'passport-jwt',
       'zod',
+      'nestjs-zod',
     )
 
     this.addDevDeps(

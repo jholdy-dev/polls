@@ -5,7 +5,7 @@ export const userSchema = z.object({
   password: z
     .string()
     .min(8)
-    .max(80)
+    .max(8)
     .regex(
       /^(?=.*\d)(?=.*[!@#$%^&*])/,
       'The password must contain numbers and special characters.',

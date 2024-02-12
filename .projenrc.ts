@@ -33,6 +33,15 @@ root.addTask('backend:docker:compose:up', {
       exec: 'cd packages/libs/schema && pnpm run build',
     },
     {
+      name: 'remove caches dist and node_modules',
+      exec: 'cd packages/apps/backend && rm -rf dist node_modules',
+    },
+
+    {
+      name: 'dependencies installation',
+      exec: 'npx projen',
+    },
+    {
       name: 'Start the backend services',
       exec: 'cd packages/apps/backend && pnpm run docker:up',
     },

@@ -1,0 +1,6 @@
+export * from './create-question-dto'
+export * from './update-question-dto'
+export * from './create-quiz-dto'
+export * from './update-quiz-dto'
+export * from './create-answer-dto'
+export * from './update-answer-dto'
