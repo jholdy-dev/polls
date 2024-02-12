@@ -1,4 +1,5 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript'
+import { Table, Column, Model, HasMany, DataType } from 'sequelize-typescript'
+import { Quiz } from '../../quizzes/entities/quiz.entity'
 
 @Table
 export class User extends Model<User> {
@@ -27,4 +28,7 @@ export class User extends Model<User> {
     allowNull: false,
   })
   password: string
+
+  @HasMany(() => Quiz)
+  quizzes: Quiz[]
 }

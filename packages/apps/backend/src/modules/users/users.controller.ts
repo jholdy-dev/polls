@@ -10,12 +10,16 @@ import {
 } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { UserDto } from './dto/user.dto'
+import { ZodPipe } from 'src/core/pipes/zod-pipe'
+import { userSchema } from '@lib/schema'
+import { ApiTags } from '@nestjs/swagger'
 
-@Controller()
+@ApiTags('users')
+@Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get('users')
+  @Get()
   async getUsers(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
@@ -23,17 +27,20 @@ export class UsersController {
     return this.usersService.getUsers(page, limit)
   }
 
-  @Post('user')
-  async createUser(@Body() createUserDto: UserDto) {
+  @Post()
+  async createUser(@Body(new ZodPipe(userSchema)) createUserDto: UserDto) {
     return this.usersService.create(createUserDto)
   }
 
-  @Patch('user/:id')
-  async updateUser(@Param('id') id: number, @Body() updateUserDto: UserDto) {
+  @Patch(':id')
+  async updateUser(
+    @Param('id') id: number,
+    @Body(new ZodPipe(userSchema)) updateUserDto: UserDto,
+  ) {
     return this.usersService.updateOne(id, updateUserDto)
   }
 
-  @Delete('user/:id')
+  @Delete(':id')
   async deleteUser(@Param('id') id: number) {
     return this.usersService.deleteOne(id)
   }

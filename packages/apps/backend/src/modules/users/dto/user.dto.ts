@@ -1,3 +1,4 @@
-import { User } from '@lib/schema'
+import { userSchema } from '@lib/schema'
+import { createZodDto } from 'nestjs-zod'
 
-export type UserDto = User
+export class UserDto extends createZodDto(userSchema) {}
