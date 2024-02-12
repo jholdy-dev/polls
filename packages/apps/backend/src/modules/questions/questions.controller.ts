@@ -15,7 +15,7 @@ import { ApiTags } from '@nestjs/swagger'
 import { ZodPipe } from 'src/core/pipes/zod-pipe'
 import { createQuestionDtoSchema, updateQuestionDtoSchema } from '@lib/schema'
 
-@ApiTags('quiz')
+@ApiTags('questions')
 @Controller('quiz/:quizId/questions')
 export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
