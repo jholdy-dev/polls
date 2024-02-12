@@ -41,7 +41,11 @@
       "steps": [
         {
           "name": "Start the backend services",
-          "exec": "docker-compose up --build"
+          "exec": "docker-compose up -d"
+        },
+        {
+          "name": "Start the backend services",
+          "exec": "pnpm run start:dev"
         }
       ]
     },
@@ -274,13 +278,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@nestjs/cli,@nestjs/schematics,@nestjs/testing,@types/express,@types/jest,@types/node,@types/sequelize,@types/supertest,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,constructs,eslint,eslint-config-prettier,eslint-plugin-prettier,jest,prettier,projen,source-map-support,supertest,ts-jest,ts-loader,ts-node,tsconfig-paths,typescript,@lib/schema,@nestjs/common,@nestjs/config,@nestjs/core,@nestjs/platform-express,@nestjs/swagger,dotenv,pg,pg-hstore,reflect-metadata,rxjs,sequelize,sequelize-typescript"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@nestjs/cli,@nestjs/schematics,@nestjs/testing,@types/bcrypt,@types/express,@types/jest,@types/node,@types/passport-jwt,@types/passport-local,@types/sequelize,@types/supertest,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,eslint,eslint-config-prettier,eslint-plugin-prettier,jest,nodemon,prettier,projen,source-map-support,supertest,ts-jest,ts-loader,ts-node,tsconfig-paths,typescript,@lib/schema,@nestjs/common,@nestjs/config,@nestjs/core,@nestjs/jwt,@nestjs/passport,@nestjs/platform-express,@nestjs/swagger,bcrypt,dotenv,passport,passport-jwt,passport-local,pg,pg-hstore,reflect-metadata,rxjs,sequelize,sequelize-typescript,zod"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @nestjs/cli @nestjs/schematics @nestjs/testing @types/express @types/jest @types/node @types/sequelize @types/supertest @typescript-eslint/eslint-plugin @typescript-eslint/parser constructs eslint eslint-config-prettier eslint-plugin-prettier jest prettier projen source-map-support supertest ts-jest ts-loader ts-node tsconfig-paths typescript @lib/schema @nestjs/common @nestjs/config @nestjs/core @nestjs/platform-express @nestjs/swagger dotenv pg pg-hstore reflect-metadata rxjs sequelize sequelize-typescript"
+          "exec": "pnpm update @nestjs/cli @nestjs/schematics @nestjs/testing @types/bcrypt @types/express @types/jest @types/node @types/passport-jwt @types/passport-local @types/sequelize @types/supertest @typescript-eslint/eslint-plugin @typescript-eslint/parser constructs eslint eslint-config-prettier eslint-plugin-prettier jest nodemon prettier projen source-map-support supertest ts-jest ts-loader ts-node tsconfig-paths typescript @lib/schema @nestjs/common @nestjs/config @nestjs/core @nestjs/jwt @nestjs/passport @nestjs/platform-express @nestjs/swagger bcrypt dotenv passport passport-jwt passport-local pg pg-hstore reflect-metadata rxjs sequelize sequelize-typescript zod"
         },
         {
           "exec": "npx projen"

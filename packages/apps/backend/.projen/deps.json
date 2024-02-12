@@ -13,6 +13,10 @@
       "type": "build"
     },
     {
+      "name": "@types/bcrypt",
+      "type": "build"
+    },
+    {
       "name": "@types/express",
       "type": "build"
     },
@@ -22,6 +26,14 @@
     },
     {
       "name": "@types/node",
+      "type": "build"
+    },
+    {
+      "name": "@types/passport-jwt",
+      "type": "build"
+    },
+    {
+      "name": "@types/passport-local",
       "type": "build"
     },
     {
@@ -42,6 +54,7 @@
     },
     {
       "name": "constructs",
+      "version": "^10.0.0",
       "type": "build"
     },
     {
@@ -58,6 +71,10 @@
     },
     {
       "name": "jest",
+      "type": "build"
+    },
+    {
+      "name": "nodemon",
       "type": "build"
     },
     {
@@ -114,6 +131,14 @@
       "type": "runtime"
     },
     {
+      "name": "@nestjs/jwt",
+      "type": "runtime"
+    },
+    {
+      "name": "@nestjs/passport",
+      "type": "runtime"
+    },
+    {
       "name": "@nestjs/platform-express",
       "type": "runtime"
     },
@@ -122,7 +147,23 @@
       "type": "runtime"
     },
     {
+      "name": "bcrypt",
+      "type": "runtime"
+    },
+    {
       "name": "dotenv",
+      "type": "runtime"
+    },
+    {
+      "name": "passport",
+      "type": "runtime"
+    },
+    {
+      "name": "passport-jwt",
+      "type": "runtime"
+    },
+    {
+      "name": "passport-local",
       "type": "runtime"
     },
     {
@@ -147,6 +188,10 @@
     },
     {
       "name": "sequelize-typescript",
+      "type": "runtime"
+    },
+    {
+      "name": "zod",
       "type": "runtime"
     }
   ],
