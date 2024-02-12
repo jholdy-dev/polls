@@ -1,7 +1,10 @@
 import { Sequelize } from 'sequelize-typescript'
 import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants'
 import { databaseConfig } from './database.config'
-import { User } from '../../modules/users/user.entity'
+import { User } from '../../modules/users/entities/user.entity'
+import { Answer } from '../../modules/answers/entities/answer.entity'
+import { Question } from '../../modules/questions/entities/question.entity'
+import { Quiz } from '../../modules/quizzes/entities/quiz.entity'
 
 export const databaseProviders = [
   {
@@ -24,7 +27,7 @@ export const databaseProviders = [
 
       console.log('config', config)
       const sequelize = new Sequelize(config)
-      sequelize.addModels([User])
+      sequelize.addModels([User, Quiz, Question, Answer])
       await sequelize.sync()
       return sequelize
     },
