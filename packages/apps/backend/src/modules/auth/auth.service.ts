@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
 import { UsersService } from '../users/users.service'
 import { UserDto } from '../users/dto/user.dto'
+import { LoginRequest } from '@lib/schema'
 
 @Injectable()
 export class AuthService {
@@ -29,7 +30,12 @@ export class AuthService {
     return result
   }
 
-  public async login(user: UserDto) {
+  public async login(loginRequest: LoginRequest) {
+    const user = await this.userService.findOneByCpf(loginRequest.cpf)
+    if (!user) {
+      throw new Error('Credentials invalid')
+    }
+
     const token = await this.generateToken(user)
     return { user, token }
   }
@@ -38,6 +44,11 @@ export class AuthService {
     user: UserDto,
   ): Promise<{ user: Omit<UserDto, 'password'>; token: string }> {
     const pass = await this.hashPassword(user.password)
+
+    const userExists = await this.userService.findOneByCpf(user.cpf)
+    if (userExists) {
+      throw new UnauthorizedException('User already exists')
+    }
 
     const newUser = await this.userService.create({ ...user, password: pass })
 
