@@ -6,7 +6,7 @@ export class Root extends TypeScriptAppProject {
   constructor() {
     super({
       defaultReleaseBranch: 'main',
-      name: 'hoyeah-monorepo',
+      name: 'monorepo',
       projenrcTs: true,
       mergify: false,
       prettier: true,
@@ -34,6 +34,7 @@ export class Root extends TypeScriptAppProject {
         'compilerOptions.strictPropertyInitialization',
         true,
       )
+      tsconfigJson?.addOverride('compilerOptions.noImplicitAny', true)
       tsconfigJson?.addOverride('referencies', [
         {
           path: '@projects/backend',

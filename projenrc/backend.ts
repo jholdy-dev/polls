@@ -1,6 +1,6 @@
 import { TypeScriptAppProject } from 'projen/lib/typescript'
 import { NestJSAppProject } from './libs/nestjs-app-project'
-import { SampleFile, YamlFile } from 'projen'
+import { YamlFile } from 'projen'
 import { NodePackageManager } from 'projen/lib/javascript'
 
 interface BackendOptions {
@@ -29,39 +29,27 @@ export class Backend extends NestJSAppProject {
       '@nestjs/config',
       'dotenv',
       '@nestjs/swagger',
+      '@nestjs/passport',
+      'passport',
+      'passport-local',
+      'bcrypt',
+      '@nestjs/jwt',
+      'passport-jwt',
+      'zod',
     )
 
-    this.addDevDeps('@types/sequelize', 'projen', 'constructs')
-
-    new SampleFile(this, 'Dockerfile', {
-      contents: [
-        'FROM --platform=amd64 node:20-alpine',
-        'WORKDIR /app',
-        'RUN npm install -g pnpm',
-        'COPY .env .',
-        'COPY ./package.json ./',
-        'COPY ./pnpm-lock.yaml ./',
-        'COPY ./node_modules ./node_modules',
-        'COPY . .',
-        'EXPOSE 3000',
-        'CMD [ "pnpm", "run", "start:dev" ]',
-      ].join('\n'),
-    })
+    this.addDevDeps(
+      '@types/sequelize',
+      '@types/passport-local',
+      '@types/bcrypt',
+      '@types/passport-jwt',
+      'nodemon',
+    )
 
     new YamlFile(this, 'docker-compose.yml', {
       obj: {
         version: '3.8',
         services: {
-          backend: {
-            container_name: 'backend',
-            build: {
-              context: '.',
-              dockerfile: 'Dockerfile',
-            },
-            volumes: ['.:/app'],
-            ports: ['3000:3000'],
-            depends_on: ['db'],
-          },
           db: {
             image: 'postgres:13',
             container_name: 'db',
@@ -91,7 +79,11 @@ export class Backend extends NestJSAppProject {
       steps: [
         {
           name: 'Start the backend services',
-          exec: 'docker-compose up --build',
+          exec: 'docker-compose up -d',
+        },
+        {
+          name: 'Start the backend services',
+          exec: 'pnpm run start:dev',
         },
       ],
     })

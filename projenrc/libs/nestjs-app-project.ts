@@ -48,7 +48,7 @@ export class NestJSAppProject extends Base {
           outDir: undefined,
           skipLibCheck: undefined,
           strictNullChecks: undefined,
-          noImplicitAny: undefined,
+          noImplicitAny: true,
           forceConsistentCasingInFileNames: undefined,
           noFallthroughCasesInSwitch: undefined,
           noEmit: true,
@@ -296,7 +296,6 @@ export class NestJSAppProject extends Base {
     new JsonFile(this, 'tsconfig.build.json', {
       obj: {
         extends: './tsconfig.json',
-        exclude: ['node_modules', 'test', 'dist', '**/*spec.ts'],
       },
     })
   }
