@@ -3,7 +3,7 @@ import { UpdateQuizDto, updateQuizDtoSchema } from '@lib/schema'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { ComponentProps } from '../../../components'
 import { Card, CardContent, CardActions } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -18,9 +18,16 @@ export const UpdateQuiz: React.FC<ComponentProps<UpdateQuizDto>> = ({
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<UpdateQuizDto>({
+    defaultValues: data,
     resolver: zodResolver(updateQuizDtoSchema),
+  })
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'questions',
   })
 
   async function update(dataValidate: UpdateQuizDto) {
@@ -61,7 +68,7 @@ export const UpdateQuiz: React.FC<ComponentProps<UpdateQuizDto>> = ({
 
       <Card sx={{ p: 2 }}>
         <h3>Questions</h3>
-        {data.questions.map((question) => (
+        {fields.map((_, index) => (
           <Card key={uuid()}>
             <CardContent>
               <h4>Edit Question</h4>
@@ -69,8 +76,8 @@ export const UpdateQuiz: React.FC<ComponentProps<UpdateQuizDto>> = ({
                 margin="normal"
                 required
                 fullWidth
-                label="Question"
-                value={question.description}
+                label="description"
+                {...register(`questions.${index}.description` as any)}
               />
             </CardContent>
             <CardActions
@@ -83,6 +90,7 @@ export const UpdateQuiz: React.FC<ComponentProps<UpdateQuizDto>> = ({
               }}
             >
               <Button
+                onClick={() => remove(index)}
                 aria-label="delete"
                 variant="outlined"
                 color="error"
@@ -95,6 +103,7 @@ export const UpdateQuiz: React.FC<ComponentProps<UpdateQuizDto>> = ({
         ))}
         <CardActions>
           <Button
+            onClick={() => append({ description: '' })}
             aria-label="add"
             variant="contained"
             color="success"
