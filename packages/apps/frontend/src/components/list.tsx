@@ -8,31 +8,40 @@ import {
   TableCell,
   TablePagination,
 } from '@mui/material'
-import { User } from '@lib/schema'
 import { v4 as uuid } from 'uuid'
-import { userService } from '../../../services'
-
-interface UserID extends User {
-  id?: number
-}
 
 type Controller = {
   page: number
   rowsPerPage: number
 }
 
-export const UserList = () => {
-  const [rows, setRows] = useState<UserID[]>([])
+export interface ServiceResponse {
+  data: any[]
+  totalCount: number
+}
+
+export type ListProps = {
+  service: {
+    get(page: number, rowsPerPage: number): Promise<ServiceResponse>
+  }
+  fields: {
+    name: string
+    field: string
+  }[]
+}
+
+export const List: React.FC<ListProps> = ({ service, fields }) => {
+  const [rows, setRows] = useState<any[]>([])
   const [rowsCount, setRowsCount] = useState(0)
   const [controller, setController] = useState<Controller>({
     page: 0,
-    rowsPerPage: 2,
+    rowsPerPage: 10,
   })
 
   useEffect(() => {
     const start = async () => {
       try {
-        const result = await userService.get(
+        const result = await service.get(
           controller.page,
           controller.rowsPerPage,
         )
@@ -44,7 +53,7 @@ export const UserList = () => {
       }
     }
     start()
-  }, [controller])
+  }, [controller, service])
 
   const handlePageChange = (_event: any, newPage: number) => {
     setController({
@@ -66,17 +75,17 @@ export const UserList = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>CPF</TableCell>
+            {fields.map((field) => (
+              <TableCell key={uuid()}>{field.name}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((user) => (
+          {rows.map((row) => (
             <TableRow key={uuid()}>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.name}</TableCell>
-              <TableCell>{user.cpf}</TableCell>
+              {fields.map((field) => (
+                <TableCell key={uuid()}>{row[field.field]}</TableCell>
+              ))}
             </TableRow>
           ))}
         </TableBody>

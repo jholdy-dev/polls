@@ -1,7 +1,7 @@
 import { Paper } from '@mui/material'
-import { Layout, Tabs } from '../../../components'
+import { Layout, List, Tabs } from '../../../components'
 import { CreateUser } from './create-user'
-import { UserList } from './user-list'
+import { userService } from '../../../services'
 
 export default function Users() {
   return (
@@ -19,7 +19,16 @@ export default function Users() {
             tabs={[
               {
                 labels: 'List',
-                component: <UserList />,
+                component: (
+                  <List
+                    service={userService}
+                    fields={[
+                      { name: 'Id', field: 'id' },
+                      { name: 'name', field: 'name' },
+                      { name: 'CPF', field: 'cpf' },
+                    ]}
+                  />
+                ),
               },
               {
                 labels: 'Create',

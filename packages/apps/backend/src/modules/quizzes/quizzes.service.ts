@@ -39,13 +39,25 @@ export class QuizzesService {
     }
   }
 
-  async get(page: number = 1, limit: number = 10): Promise<Quiz[]> {
-    const offset = (page - 1) * limit
-    return await this.quizModel.findAll<Quiz>({
+  async get(page: number = 1, limit: number = 10) {
+    const offset = page * limit
+    const result = await this.quizModel.findAll<Quiz>({
       offset,
       limit,
       include: [Question],
     })
+
+    const count = await this.count()
+
+    return {
+      data: result,
+      page,
+      totalCount: count,
+    }
+  }
+
+  async count(): Promise<number> {
+    return await this.quizModel.count()
   }
 
   async findOne(id: number): Promise<Quiz | null> {
