@@ -42,11 +42,14 @@ type Actions = {
   remove: boolean
 }
 
+export interface ComponentProps<T = any> {
+  handleEdit: (id: number, data: T) => () => Promise<void>
+}
 export type ListProps = {
   service: ListService
   fields: Field[]
   actions?: Actions
-  Component: React.FC<{ service: ListService }>
+  Component: React.FC<ComponentProps>
 }
 
 export const List: React.FC<ListProps> = ({
@@ -123,6 +126,17 @@ export const List: React.FC<ListProps> = ({
     }
   }
 
+  const handleEdit = (id: number, data: any) => async () => {
+    try {
+      await service.update(id, data)
+      const result = await service.get(controller.page, controller.rowsPerPage)
+      setRows(result.data)
+      setRowsCount(result.totalCount)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Card>
       <Table>
@@ -183,7 +197,7 @@ export const List: React.FC<ListProps> = ({
           onClose={toggleDrawer(false)}
           onOpen={toggleDrawer(true)}
         >
-          {Component && <Component service={service} />}
+          {Component && <Component handleEdit={handleEdit} />}
         </SwipeableDrawer>
       </React.Fragment>
     </Card>
