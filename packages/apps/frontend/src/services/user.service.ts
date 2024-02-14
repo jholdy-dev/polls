@@ -1,5 +1,6 @@
 import { User } from '@lib/schema'
 import { HttpService } from './api'
+import { ListService } from '../components'
 
 type GetUsersResponse = {
   data: User[]
@@ -7,8 +8,16 @@ type GetUsersResponse = {
   totalCount: number
 }
 
-class UserService {
+class UserService implements ListService<User> {
   constructor(private readonly httpService: HttpService) {}
+  async update(id: number, data: User): Promise<User> {
+    const result = await this.httpService.patch<User>(`/users/${id}`, data)
+    return result
+  }
+  async delete(id: string): Promise<User> {
+    const result = await this.httpService.delete<User>(`/users/${id}`)
+    return result
+  }
   async create(user: User): Promise<User> {
     const response = await this.httpService.post<User>('/users', user)
     return response

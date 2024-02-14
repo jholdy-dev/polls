@@ -21,6 +21,10 @@ export class HttpService {
     const response = await api.delete<T>(url)
     return response.data
   }
+  async patch<T>(url: string, data: any) {
+    const response = await api.patch<T>(url, data)
+    return response.data
+  }
 }
 
 export const apiService = new HttpService()

@@ -1,7 +1,9 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import {
+  Button,
   Card,
   IconButton,
+  SwipeableDrawer,
   Table,
   TableBody,
   TableCell,
@@ -12,19 +14,22 @@ import {
 import { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import EditIcon from '@mui/icons-material/Edit'
+import React from 'react'
 
 type Controller = {
   page: number
   rowsPerPage: number
 }
 
-export interface ServiceResponse {
-  data: any[]
+export interface ServiceResponse<T = any> {
+  data: T[]
   totalCount: number
 }
 
-type Service = {
-  get(page: number, rowsPerPage: number): Promise<ServiceResponse>
+export interface ListService<T = any> {
+  get(page: number, rowsPerPage: number): Promise<ServiceResponse<T>>
+  update(id: number, data: T): Promise<T>
+  delete(id: string): Promise<T>
 }
 
 type Field = {
@@ -38,12 +43,19 @@ type Actions = {
 }
 
 export type ListProps = {
-  service: Service
+  service: ListService
   fields: Field[]
   actions?: Actions
+  Component: React.FC<{ service: ListService }>
 }
 
-export const List: React.FC<ListProps> = ({ service, fields, actions }) => {
+export const List: React.FC<ListProps> = ({
+  service,
+  fields,
+  actions,
+  Component,
+}) => {
+  const [anchor, setAnchor] = useState(false)
   const [rows, setRows] = useState<any[]>([])
   const [rowsCount, setRowsCount] = useState(0)
   const [controller, setController] = useState<Controller>({
@@ -83,6 +95,34 @@ export const List: React.FC<ListProps> = ({ service, fields, actions }) => {
     })
   }
 
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event &&
+        event.type === 'keydown' &&
+        ((event as React.KeyboardEvent).key === 'Tab' ||
+          (event as React.KeyboardEvent).key === 'Shift')
+      ) {
+        return
+      }
+
+      setAnchor(open)
+    }
+
+  const handleDelete = (id: string) => async () => {
+    try {
+      const confirmed = window.confirm('Tem certeza que deseja excluir?')
+      if (!confirmed) return
+
+      await service.delete(id)
+      const result = await service.get(controller.page, controller.rowsPerPage)
+      setRows(result.data)
+      setRowsCount(result.totalCount)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Card>
       <Table>
@@ -104,7 +144,8 @@ export const List: React.FC<ListProps> = ({ service, fields, actions }) => {
                 <TableCell align="right">
                   {actions.edit && (
                     <IconButton
-                      aria-label="delete"
+                      onClick={() => setAnchor(true)}
+                      aria-label="edit"
                       size="small"
                       sx={{ marginRight: actions.remove ? 2 : 0 }}
                     >
@@ -112,7 +153,11 @@ export const List: React.FC<ListProps> = ({ service, fields, actions }) => {
                     </IconButton>
                   )}
                   {actions.remove && (
-                    <IconButton aria-label="delete" size="small">
+                    <IconButton
+                      onClick={handleDelete(row.id)}
+                      aria-label="delete"
+                      size="small"
+                    >
                       <DeleteIcon fontSize="small" />
                     </IconButton>
                   )}
@@ -130,6 +175,17 @@ export const List: React.FC<ListProps> = ({ service, fields, actions }) => {
         rowsPerPage={controller.rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <React.Fragment key={uuid()}>
+        <Button onClick={toggleDrawer(true)}>{anchor}</Button>
+        <SwipeableDrawer
+          anchor="right"
+          open={anchor}
+          onClose={toggleDrawer(false)}
+          onOpen={toggleDrawer(true)}
+        >
+          {Component && <Component service={service} />}
+        </SwipeableDrawer>
+      </React.Fragment>
     </Card>
   )
 }

@@ -22,6 +22,7 @@ export default function Quizzes() {
                 component: (
                   <List
                     service={quizzesService}
+                    Component={() => <h1>OLa</h1>}
                     fields={[
                       { name: 'Id', field: 'id' },
                       { name: 'Name', field: 'name' },

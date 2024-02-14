@@ -1,6 +1,6 @@
-import { CreateQuizDto } from '@lib/schema'
+import { CreateQuizDto, UpdateQuizDto } from '@lib/schema'
 import { HttpService } from './api'
-import { ServiceResponse } from '../components'
+import { ListService, ServiceResponse } from '../components'
 
 interface GetQuizzesResponse extends ServiceResponse {
   data: CreateQuizDto[]
@@ -8,8 +8,18 @@ interface GetQuizzesResponse extends ServiceResponse {
   totalCount: number
 }
 
-class QuizService {
+class QuizService implements ListService<CreateQuizDto> {
   constructor(private readonly httpService: HttpService) {}
+  async update(id: number, data: UpdateQuizDto) {
+    const result = await this.httpService.patch<CreateQuizDto>(
+      `/quizzes/${id}`,
+      data,
+    )
+    return result
+  }
+  async delete(id: string): Promise<any> {
+    await this.httpService.delete(`/quizzes/${id}`)
+  }
   async create(createQuiz: CreateQuizDto): Promise<CreateQuizDto> {
     const response = await this.httpService.post<CreateQuizDto>(
       '/quizzes',

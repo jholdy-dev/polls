@@ -22,6 +22,7 @@ export default function Users() {
                 component: (
                   <List
                     service={userService}
+                    Component={() => <h1>OLa</h1>}
                     fields={[
                       { name: 'Id', field: 'id' },
                       { name: 'name', field: 'name' },
