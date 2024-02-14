@@ -92,6 +92,20 @@ export class QuizzesService {
 
     if (!updateQuizDto.questions) return
 
+    const questionsIds = updateQuizDto.questions
+      .filter((question) => question.id)
+      .map((question) => question.id)
+
+    const diffIdsQuestions = quiz.questions
+      .map((question) => question.id)
+      .filter((id) => !questionsIds.includes(id))
+
+    await Promise.all(
+      diffIdsQuestions.map(async (id) => {
+        await this.questionsService.remove(quiz.id, id)
+      }),
+    )
+
     await Promise.all(
       updateQuizDto.questions.map(async (question) => {
         if (question.id) {
