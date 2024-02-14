@@ -3,15 +3,15 @@ import { Base } from './base'
 import { SampleFile } from 'projen'
 import { NodePackageManager } from 'projen/lib/javascript'
 
-type DescktopProps = {
+type DesktopProps = {
   parent: TypeScriptAppProject
 }
 
 export class Desktop extends Base {
-  constructor(props: DescktopProps) {
+  constructor(props: DesktopProps) {
     super({
       ...props,
-      name: '@apps/descktop',
+      name: '@apps/desktop',
       outdir: 'desktop',
       defaultReleaseBranch: 'main',
       release: false,

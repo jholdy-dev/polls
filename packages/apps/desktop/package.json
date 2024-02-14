@@ -1,5 +1,5 @@
 {
-  "name": "@apps/descktop",
+  "name": "@apps/desktop",
   "scripts": {
     "compile": "npx projen compile",
     "default": "npx projen default",
