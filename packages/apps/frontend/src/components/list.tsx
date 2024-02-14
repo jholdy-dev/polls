@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import EditIcon from '@mui/icons-material/Edit'
 import React from 'react'
+import styled from '@emotion/styled'
 
 type Controller = {
   page: number
@@ -43,7 +44,8 @@ type Actions = {
 }
 
 export interface ComponentProps<T = any> {
-  handleEdit: (id: number, data: T) => () => Promise<void>
+  handleEdit: (data: T) => Promise<void>
+  data: T
 }
 export type ListProps = {
   service: ListService
@@ -52,12 +54,19 @@ export type ListProps = {
   Component: React.FC<ComponentProps>
 }
 
+const SwipeableDrawerStyled = styled(SwipeableDrawer)({
+  '& .MuiDrawer-paper': {
+    overflowY: 'visible',
+  },
+})
+
 export const List: React.FC<ListProps> = ({
   service,
   fields,
   actions,
   Component,
 }) => {
+  const [rowEdit, setRowEdit] = useState<any>(null)
   const [anchor, setAnchor] = useState(false)
   const [rows, setRows] = useState<any[]>([])
   const [rowsCount, setRowsCount] = useState(0)
@@ -126,7 +135,7 @@ export const List: React.FC<ListProps> = ({
     }
   }
 
-  const handleEdit = (id: number, data: any) => async () => {
+  const handleEdit = (id: number) => async (data: any) => {
     try {
       await service.update(id, data)
       const result = await service.get(controller.page, controller.rowsPerPage)
@@ -158,7 +167,10 @@ export const List: React.FC<ListProps> = ({
                 <TableCell align="right">
                   {actions.edit && (
                     <IconButton
-                      onClick={() => setAnchor(true)}
+                      onClick={() => {
+                        setRowEdit(row)
+                        setAnchor(true)
+                      }}
                       aria-label="edit"
                       size="small"
                       sx={{ marginRight: actions.remove ? 2 : 0 }}
@@ -189,17 +201,26 @@ export const List: React.FC<ListProps> = ({
         rowsPerPage={controller.rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      <React.Fragment key={uuid()}>
+      <Card style={{ zIndex: 9999 }} key={uuid()}>
         <Button onClick={toggleDrawer(true)}>{anchor}</Button>
-        <SwipeableDrawer
+        <SwipeableDrawerStyled
+          sx={{
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="temporary"
           anchor="right"
           open={anchor}
           onClose={toggleDrawer(false)}
           onOpen={toggleDrawer(true)}
         >
-          {Component && <Component handleEdit={handleEdit} />}
-        </SwipeableDrawer>
-      </React.Fragment>
+          {rowEdit?.id && Component && (
+            <Component handleEdit={handleEdit(rowEdit.id)} data={rowEdit} />
+          )}
+        </SwipeableDrawerStyled>
+      </Card>
     </Card>
   )
 }
