@@ -2,6 +2,7 @@ import { Paper } from '@mui/material'
 import { Layout, List, Tabs } from '../../components'
 import { CreateUser } from './create-user'
 import { userService } from '../../services'
+import { UpdateUser } from './update-user'
 
 export default function Users() {
   return (
@@ -22,12 +23,13 @@ export default function Users() {
                 component: (
                   <List
                     service={userService}
-                    Component={() => <h1>OLa</h1>}
+                    Component={UpdateUser}
                     fields={[
                       { name: 'Id', field: 'id' },
                       { name: 'name', field: 'name' },
                       { name: 'CPF', field: 'cpf' },
                     ]}
+                    actions={{ edit: true, remove: true }}
                   />
                 ),
               },

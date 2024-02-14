@@ -7,14 +7,12 @@ import {
   Param,
   Body,
   Query,
-  UseGuards,
 } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { UserDto } from './dto/user.dto'
 import { ZodPipe } from 'src/core/pipes/zod-pipe'
 import { userSchema } from '@lib/schema'
 import { ApiTags } from '@nestjs/swagger'
-import { AuthGuard } from '../auth/auth.guard'
 
 @ApiTags('users')
 @Controller('users')
@@ -34,7 +32,6 @@ export class UsersController {
     return this.usersService.create(createUserDto)
   }
 
-  @UseGuards(AuthGuard)
   @Patch(':id')
   async updateUser(
     @Param('id') id: number,
@@ -43,7 +40,6 @@ export class UsersController {
     return this.usersService.updateOne(id, updateUserDto)
   }
 
-  @UseGuards(AuthGuard)
   @Delete(':id')
   async deleteUser(@Param('id') id: number) {
     return this.usersService.deleteOne(id)

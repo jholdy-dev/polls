@@ -62,7 +62,9 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('User not found')
     }
-    await user.update(updateUserDto)
+    await this.userRepository.update(updateUserDto, {
+      where: { id },
+    })
     return user
   }
 
