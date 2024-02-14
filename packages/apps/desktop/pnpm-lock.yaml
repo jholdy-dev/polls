@@ -2164,7 +2164,7 @@ packages:
       fs-extra: 10.1.0
       hosted-git-info: 4.1.0
       is-ci: 3.0.1
-      isbinaryfile: 5.0.0
+      isbinaryfile: 5.0.1
       js-yaml: 4.1.0
       lazy-val: 1.0.5
       minimatch: 5.1.6
@@ -3708,9 +3708,9 @@ packages:
     engines: {node: '>= 8.0.0'}
     dev: true
 
-  /isbinaryfile@5.0.0:
-    resolution: {integrity: sha512-UDdnyGvMajJUWCkib7Cei/dvyJrrvo4FIrsvSFWdPpXSUorzXrDJ0S+X5Q4ZlasfPjca4yqCNNsjbCeiy8FFeg==}
-    engines: {node: '>= 14.0.0'}
+  /isbinaryfile@5.0.1:
+    resolution: {integrity: sha512-zQ8IUca9J1njaM4vi5EzSMbwRDRJ6BdoG/i+Xmac4TkVuWdKNXoaTkilzzd59N+bkr14VQzXAZZlU/fArDqkEA==}
+    engines: {node: '>= 20.0.0'}
     dev: true
 
   /isexe@2.0.0:

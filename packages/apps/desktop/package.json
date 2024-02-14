@@ -13,6 +13,7 @@
     "watch": "npx projen watch",
     "projen": "npx projen",
     "dev": "vite",
+    "prepare": "rm -rf node_modules/electron/dist && node node_modules/electron/install.js",
     "build": "tsc && vite build && electron-builder",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"

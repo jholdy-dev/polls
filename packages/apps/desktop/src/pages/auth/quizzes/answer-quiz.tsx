@@ -57,9 +57,8 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
             <CardContent>
               <h4>{question.description}</h4>
               <TextField
-                sx={{ display: 'none' }}
                 value={question.id}
-                {...register(`questions.${index}.answers.questionId` as any, {
+                {...register(`questions.${index}.answer.questionId` as any, {
                   setValueAs: (value) => parseInt(value),
                 })}
               />
@@ -68,7 +67,7 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
                 required
                 fullWidth
                 label="Answer"
-                {...register(`questions.${index}.answers.message` as any)}
+                {...register(`questions.${index}.answer.message` as any)}
                 error={!!errors.questions?.[index]?.answers?.message}
                 helperText={errors.questions?.[index]?.answers?.message}
               />

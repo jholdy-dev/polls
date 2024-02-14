@@ -23,6 +23,7 @@ export class Desktop extends Base {
     this.removeTask('build')
     this.removeTask('lint')
     this.removeTask('preview')
+    this.removeTask('prepare')
     this.gitignore.include('**release**')
     this.gitignore.include('**dist-electron**')
 
@@ -30,6 +31,8 @@ export class Desktop extends Base {
 
     this.addScripts({
       dev: 'vite',
+      prepare:
+        'rm -rf node_modules/electron/dist && node node_modules/electron/install.js',
       build: 'tsc && vite build && electron-builder',
       lint: 'eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0',
       preview: 'vite preview',
