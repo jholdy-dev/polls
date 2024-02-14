@@ -5,6 +5,7 @@ export const updateQuizDtoSchema = z.object({
   description: z.string(),
   questions: z.array(
     z.object({
+      id: z.number().nullable(),
       description: z.string(),
     }),
   ),

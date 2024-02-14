@@ -5,6 +5,8 @@ import { QUIZ_REPOSITORY } from 'src/core/constants'
 import { Quiz } from './entities/quiz.entity'
 import { Question } from '../questions/entities/question.entity'
 import { UsersService } from '../users/users.service'
+import { CreateQuestionDto } from '@lib/schema'
+import { QuestionsService } from '../questions/questions.service'
 
 @Injectable()
 export class QuizzesService {
@@ -12,6 +14,7 @@ export class QuizzesService {
     @Inject(QUIZ_REPOSITORY)
     private readonly quizModel: typeof Quiz,
     private readonly userService: UsersService,
+    private readonly questionsService: QuestionsService,
   ) {}
 
   async create(createQuizDto: CreateQuizDto): Promise<Quiz> {
@@ -79,7 +82,28 @@ export class QuizzesService {
       throw new NotFoundException('Quiz not found')
     }
 
-    await this.quizModel.update(updateQuizDto as Quiz, { where: { id } })
+    await this.quizModel.update(
+      {
+        name: updateQuizDto.name,
+        description: updateQuizDto.description,
+      } as Quiz,
+      { where: { id } },
+    )
+
+    if (!updateQuizDto.questions) return
+
+    await Promise.all(
+      updateQuizDto.questions.map(async (question) => {
+        if (question.id) {
+          await this.questionsService.update(quiz.id, question.id, question)
+        } else {
+          await this.questionsService.create(quiz.id, {
+            description: question.description,
+            quizId: quiz.id,
+          } as CreateQuestionDto)
+        }
+      }),
+    )
   }
 
   async remove(id: number) {

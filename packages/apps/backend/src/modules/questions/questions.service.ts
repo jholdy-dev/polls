@@ -12,7 +12,7 @@ export class QuestionsService {
   ) {}
 
   async create(
-    quizId: string,
+    quizId: number,
     createQuestionDto: CreateQuestionDto,
   ): Promise<Question> {
     const question = {

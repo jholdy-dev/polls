@@ -3,15 +3,15 @@ import { HttpService } from './api'
 import { ListService, ServiceResponse } from '../components'
 
 interface GetQuizzesResponse extends ServiceResponse {
-  data: CreateQuizDto[]
+  data: UpdateQuizDto[]
   page: number
   totalCount: number
 }
 
-class QuizService implements ListService<CreateQuizDto> {
+class QuizService implements ListService<UpdateQuizDto> {
   constructor(private readonly httpService: HttpService) {}
   async update(id: number, data: UpdateQuizDto) {
-    const result = await this.httpService.patch<CreateQuizDto>(
+    const result = await this.httpService.patch<UpdateQuizDto>(
       `/quizzes/${id}`,
       data,
     )

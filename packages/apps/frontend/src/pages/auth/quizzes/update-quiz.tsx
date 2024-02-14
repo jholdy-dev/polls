@@ -107,7 +107,7 @@ export const UpdateQuiz: React.FC<ComponentProps<UpdateQuizDto>> = ({
         ))}
         <CardActions>
           <Button
-            onClick={() => append({ description: '' })}
+            onClick={() => append({ description: '', id: 0 })}
             aria-label="add"
             variant="contained"
             color="success"

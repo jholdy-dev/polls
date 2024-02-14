@@ -23,7 +23,7 @@ export class Question extends Model<Question> {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  quizId: string
+  quizId: number
 
   @BelongsTo(() => Quiz)
   quiz: Quiz

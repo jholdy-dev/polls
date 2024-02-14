@@ -26,7 +26,7 @@ export class QuestionsController {
   @UseGuards(AuthGuard)
   @Post()
   create(
-    @Param('quizId') quizId: string,
+    @Param('quizId') quizId: number,
     @Body(new ZodPipe(createQuestionDtoSchema))
     createQuestionDto: CreateQuestionDto,
   ) {
