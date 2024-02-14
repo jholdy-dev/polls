@@ -10,6 +10,7 @@ async function bootstrap() {
     .setTitle('Polls api')
     .setDescription('The polls API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build()
   patchNestJsSwagger()
   const document = SwaggerModule.createDocument(app, config)

@@ -11,16 +11,18 @@ import {
 import { QuizzesService } from './quizzes.service'
 import { CreateQuizDto } from './dto/create-quiz.dto'
 import { UpdateQuizDto } from './dto/update-quiz.dto'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { ZodPipe } from 'src/core/pipes/zod-pipe'
 import { createQuizDtoSchema, updateQuizDtoSchema } from '@lib/schema'
 import { AuthGuard } from '../auth/auth.guard'
 
+@ApiBearerAuth()
 @ApiTags('quizzes')
 @Controller('quizzes')
 export class QuizzesController {
   constructor(private readonly quizzesService: QuizzesService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body(new ZodPipe(createQuizDtoSchema)) createQuizDto: CreateQuizDto) {
     return this.quizzesService.create(createQuizDto)
