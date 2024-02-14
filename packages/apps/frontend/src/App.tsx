@@ -1,38 +1,23 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
-import SignIn from './pages/sign-in'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { useAuthStore, useSnackbarStore } from './stores'
 import Dashboard from './pages/auth/dashboard'
 import Users from './pages/auth/users'
 import { Snackbar } from '@mui/material'
-
-type PrivateRouteProps = {
-  Component: React.ReactNode | JSX.Element | any
-}
-
-export function PublicRoute({ Component }: PrivateRouteProps) {
-  const user = useAuthStore((store) => store.user)
-  return user ? <Navigate to="/dashboard" replace /> : <Component />
-}
-
-function PrivateRoute({ Component }: PrivateRouteProps) {
-  const user = useAuthStore((store) => store.user)
-
-  return user ? <Component /> : <Navigate to="/" replace />
-}
+import Quizzes from './pages/auth/quizzes'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <PublicRoute Component={SignIn} />,
-  },
-  {
-    path: '/dashboard',
-    element: <PrivateRoute Component={Dashboard} />,
+    element: <Dashboard />,
   },
   {
     path: '/dashboard/users',
-    element: <PrivateRoute Component={Users} />,
+    element: <Users />,
+  },
+  {
+    path: '/dashboard/quizzes',
+    element: <Quizzes />,
   },
 ])
 
