@@ -62,6 +62,11 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('User not found')
     }
+
+    if (updateUserDto.password) {
+      updateUserDto.password = await this.hashPassword(updateUserDto.password)
+    }
+
     await this.userRepository.update(updateUserDto, {
       where: { id },
     })

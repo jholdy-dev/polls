@@ -3,10 +3,10 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import SignIn from './pages/sign-in'
 import { useAuthStore } from './stores'
 import Dashboard from './pages/auth/dashboard'
-import Users from './pages/auth/users'
+import Quizzes from './pages/auth/quizzes'
 
 type PrivateRouteProps = {
-  Component: React.ReactNode | JSX.Element | any
+  Component: React.FC
 }
 
 export function PublicRoute({ Component }: PrivateRouteProps) {
@@ -30,8 +30,8 @@ const router = createBrowserRouter([
     element: <PrivateRoute Component={Dashboard} />,
   },
   {
-    path: '/dashboard/users',
-    element: <PrivateRoute Component={Users} />,
+    path: '/dashboard/quizzes',
+    element: <PrivateRoute Component={Quizzes} />,
   },
 ])
 

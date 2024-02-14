@@ -6,6 +6,8 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import { v4 as uuid } from 'uuid'
 
+import { create } from 'zustand'
+
 type Props = {
   tabs: {
     labels: string
@@ -13,16 +15,28 @@ type Props = {
   }[]
 }
 
+type TabsUserStore = {
+  tab: string
+  setTab: (tab: string) => void
+}
+
+export const useTabsUserStore = create<TabsUserStore>((set) => ({
+  tab: '0',
+  setTab: (tab) => {
+    set({ tab })
+  },
+}))
+
 export function Tabs({ tabs }: Props) {
-  const [value, setValue] = React.useState('0')
+  const { tab, setTab } = useTabsUserStore()
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue)
+    setTab(newValue)
   }
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
-      <TabContext value={value}>
+      <TabContext value={tab}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             {tabs.map((tab, index) => (

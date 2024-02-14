@@ -18,6 +18,10 @@
       "type": "build"
     },
     {
+      "name": "@types/uuid",
+      "type": "build"
+    },
+    {
       "name": "@typescript-eslint/eslint-plugin",
       "type": "build"
     },

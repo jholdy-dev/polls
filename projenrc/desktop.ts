@@ -73,6 +73,7 @@ export class Desktop extends Base {
       'electron-builder',
       'vite-plugin-electron',
       'vite-plugin-electron-renderer',
+      '@types/uuid',
     )
 
     for (const electron_file of [
@@ -235,6 +236,18 @@ export class Desktop extends Base {
 
     this.tryRemoveFile('tsconfig.json')
 
+    /** t
+    *"noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    *
+    * sconfig.json **/
+
     new SampleFile(this, 'tsconfig.json', {
       contents: [
         '{',
@@ -244,6 +257,11 @@ export class Desktop extends Base {
         '    "lib": ["ES2020", "DOM", "DOM.Iterable"],',
         '    "module": "ESNext",',
         '    "skipLibCheck": true,',
+        '    "forceConsistentCasingInFileNames": true,',
+        '    "noUnusedLocals": true,',
+        '    "noUnusedParameters": true,',
+        '    "noImplicitReturns": true,',
+        '    "noImplicitAny": true,',
         '    "moduleResolution": "bundler",',
         '    "allowImportingTsExtensions": true,',
         '    "resolveJsonModule": true,',
@@ -251,8 +269,6 @@ export class Desktop extends Base {
         '    "noEmit": true,',
         '    "jsx": "react-jsx",',
         '    "strict": true,',
-        '    "noUnusedLocals": true,',
-        '    "noUnusedParameters": true,',
         '    "noFallthroughCasesInSwitch": true',
         '  },',
         '  "include": ["src", "electron"],',
@@ -266,6 +282,12 @@ export class Desktop extends Base {
         '{',
         '  "compilerOptions": {',
         '    "composite": true,',
+        '    "noImplicitAny": true,',
+        '    "strictNullChecks": true,',
+        '    "strictFunctionTypes": true,',
+        '    "strictBindCallApply": true,',
+        '    "strictPropertyInitialization": true,',
+        '    "esModuleInterop": true,',
         '    "skipLibCheck": true,',
         '    "module": "ESNext",',
         '    "moduleResolution": "bundler",',

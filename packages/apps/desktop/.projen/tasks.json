@@ -80,13 +80,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/react,@types/react-dom,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,@vitejs/plugin-react,electron,electron-builder,eslint,eslint-plugin-react-hooks,eslint-plugin-react-refresh,jest,projen,ts-jest,typescript,vite,vite-plugin-electron,vite-plugin-electron-renderer,@emotion/react,@emotion/styled,@fontsource/roboto,@hookform/resolvers,@lib/schema,@mui/icons-material,@mui/lab,@mui/material,@mui/x-data-grid,axios,localforage,match-sorter,react,react-dom,react-hook-form,react-imask,react-router-dom,sort-by,uuid,zustand"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/react,@types/react-dom,@types/uuid,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,@vitejs/plugin-react,electron,electron-builder,eslint,eslint-plugin-react-hooks,eslint-plugin-react-refresh,jest,projen,ts-jest,typescript,vite,vite-plugin-electron,vite-plugin-electron-renderer,@emotion/react,@emotion/styled,@fontsource/roboto,@hookform/resolvers,@lib/schema,@mui/icons-material,@mui/lab,@mui/material,@mui/x-data-grid,axios,localforage,match-sorter,react,react-dom,react-hook-form,react-imask,react-router-dom,sort-by,uuid,zustand"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @types/jest @types/node @types/react @types/react-dom @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-react constructs electron electron-builder eslint eslint-plugin-react-hooks eslint-plugin-react-refresh jest jest-junit projen ts-jest typescript vite vite-plugin-electron vite-plugin-electron-renderer @emotion/react @emotion/styled @fontsource/roboto @hookform/resolvers @lib/schema @mui/icons-material @mui/lab @mui/material @mui/x-data-grid axios localforage match-sorter react react-dom react-hook-form react-imask react-router-dom sort-by uuid zustand"
+          "exec": "pnpm update @types/jest @types/node @types/react @types/react-dom @types/uuid @typescript-eslint/eslint-plugin @typescript-eslint/parser @vitejs/plugin-react constructs electron electron-builder eslint eslint-plugin-react-hooks eslint-plugin-react-refresh jest jest-junit projen ts-jest typescript vite vite-plugin-electron vite-plugin-electron-renderer @emotion/react @emotion/styled @fontsource/roboto @hookform/resolvers @lib/schema @mui/icons-material @mui/lab @mui/material @mui/x-data-grid axios localforage match-sorter react react-dom react-hook-form react-imask react-router-dom sort-by uuid zustand"
         },
         {
           "exec": "npx projen"
