@@ -13,19 +13,6 @@ import { Question } from '../../questions/entities/question.entity'
 @Table
 export class Quiz extends Model<Quiz> {
   @Column({
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-    primaryKey: true,
-  })
-  cod: string
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-  })
-  date: Date
-
-  @Column({
     type: DataType.STRING,
     allowNull: false,
   })
@@ -39,10 +26,10 @@ export class Quiz extends Model<Quiz> {
 
   @ForeignKey(() => User)
   @Column({
-    type: DataType.UUID,
+    type: DataType.INTEGER,
     allowNull: false,
   })
-  userId: string
+  userId: number
 
   @BelongsTo(() => User)
   user: User

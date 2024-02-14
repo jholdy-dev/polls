@@ -4,13 +4,6 @@ import { Quiz } from '../../quizzes/entities/quiz.entity'
 @Table
 export class User extends Model<User> {
   @Column({
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-    primaryKey: true,
-  })
-  cod: string
-
-  @Column({
     type: DataType.STRING,
     allowNull: false,
   })

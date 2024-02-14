@@ -21,7 +21,6 @@ import { AuthGuard } from '../auth/auth.guard'
 export class QuizzesController {
   constructor(private readonly quizzesService: QuizzesService) {}
 
-  @UseGuards(AuthGuard)
   @Post()
   create(@Body(new ZodPipe(createQuizDtoSchema)) createQuizDto: CreateQuizDto) {
     return this.quizzesService.create(createQuizDto)

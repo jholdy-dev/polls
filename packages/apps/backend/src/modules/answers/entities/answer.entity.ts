@@ -11,13 +11,6 @@ import { Question } from '../../questions/entities/question.entity'
 @Table
 export class Answer extends Model<Answer> {
   @Column({
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-    primaryKey: true,
-  })
-  cod: string
-
-  @Column({
     type: DataType.STRING,
     allowNull: false,
   })
@@ -25,7 +18,7 @@ export class Answer extends Model<Answer> {
 
   @ForeignKey(() => Question)
   @Column({
-    type: DataType.UUID,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   questionId: string

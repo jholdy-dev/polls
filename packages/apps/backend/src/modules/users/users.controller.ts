@@ -21,7 +21,6 @@ import { AuthGuard } from '../auth/auth.guard'
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(AuthGuard)
   @Get()
   async getUsers(
     @Query('page') page: number = 1,
@@ -30,7 +29,6 @@ export class UsersController {
     return this.usersService.getUsers(page, limit)
   }
 
-  @UseGuards(AuthGuard)
   @Post()
   async createUser(@Body(new ZodPipe(userSchema)) createUserDto: UserDto) {
     return this.usersService.create(createUserDto)

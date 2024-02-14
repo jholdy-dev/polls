@@ -30,7 +30,11 @@ export class UsersService {
   }
 
   async findOneById(id: number): Promise<User | null> {
-    return await this.userRepository.findOne<User>({ where: { id } })
+    const result = await this.userRepository.findOne<User>({ where: { id } })
+    if (!result) {
+      return null
+    }
+    return result['dataValues']
   }
 
   async getUsers(page: number = 1, limit: number = 10): Promise<User[]> {
