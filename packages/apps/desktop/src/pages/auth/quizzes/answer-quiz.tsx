@@ -21,8 +21,6 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
     resolver: zodResolver(answerQuizDtoSchema),
   })
 
-  console.log('data', data)
-
   async function update(dataValidate: AnswerQuizDto) {
     try {
       await handleEdit(dataValidate)
@@ -51,11 +49,15 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
           <Card key={uuid()}>
             <CardContent>
               <h4>{question.description}</h4>
+              <h3>Abswers</h3>
+              {question.answers.map((answer) => (
+                <p key={uuid()}>{answer.description}</p>
+              ))}
               <TextField
                 sx={{ display: 'none' }}
                 value={question.id}
                 {...register(
-                  `questions.${index}.answers[0].questionId` as any,
+                  `questions.${index}.answers.${question.answers.length}.questionId` as any,
                   {
                     setValueAs: () => question.id,
                   },
@@ -67,10 +69,25 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
                 fullWidth
                 label="Answer"
                 {...register(
-                  `questions.${index}.answers[0].description` as any,
+                  `questions.${index}.answers.${question.answers.length}.description` as any,
                 )}
-                error={!!errors.questions?.[index]?.answer?.message}
-                helperText={errors.questions?.[index]?.answer?.message}
+                error={(() => {
+                  console.log('errors', errors)
+                  if (!errors?.questions) return false
+                  const questionErrors = errors?.questions[index]
+                  if (!questionErrors?.answers) return false
+                  const answerErrors =
+                    questionErrors?.answers[question.answers.length]
+                  return !!answerErrors?.message
+                })()}
+                helperText={(() => {
+                  if (!errors?.questions) return false
+                  const questionErrors = errors?.questions[index]
+                  if (!questionErrors?.answers) return false
+                  const answerErrors =
+                    questionErrors?.answers[question.answers.length]
+                  return answerErrors?.message
+                })()}
               />
             </CardContent>
           </Card>
@@ -78,7 +95,7 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
       </Card>
 
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-        Edit
+        Answer
       </Button>
     </Box>
   )

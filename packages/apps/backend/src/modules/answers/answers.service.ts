@@ -19,7 +19,7 @@ export class AnswersService {
         const { id, answers } = question
 
         await this.answerModel.create<Answer>({
-          description: answers.description,
+          description: answers[0].description,
           questionId: id,
         } as Answer)
       }),
