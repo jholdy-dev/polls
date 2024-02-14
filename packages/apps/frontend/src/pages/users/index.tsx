@@ -1,7 +1,7 @@
 import { Paper } from '@mui/material'
-import { Layout, List, Tabs } from '../../../components'
+import { Layout, List, Tabs } from '../../components'
 import { CreateUser } from './create-user'
-import { userService } from '../../../services'
+import { userService } from '../../services'
 
 export default function Users() {
   return (

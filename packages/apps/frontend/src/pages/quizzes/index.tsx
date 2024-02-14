@@ -1,6 +1,6 @@
 import { Paper } from '@mui/material'
-import { Layout, List, Tabs } from '../../../components'
-import { quizzesService } from '../../../services'
+import { Layout, List, Tabs } from '../../components'
+import { quizzesService } from '../../services'
 import { CreateQuiz } from './create-quiz'
 import { UpdateQuiz } from './update-quiz'
 

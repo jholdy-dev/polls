@@ -1,10 +1,10 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { useAuthStore, useSnackbarStore } from './stores'
-import Dashboard from './pages/auth/dashboard'
-import Users from './pages/auth/users'
+import Dashboard from './pages/dashboard'
+import Users from './pages/users'
 import { Snackbar } from '@mui/material'
-import Quizzes from './pages/auth/quizzes'
+import Quizzes from './pages/quizzes'
 
 const router = createBrowserRouter([
   {

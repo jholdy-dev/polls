@@ -4,8 +4,8 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { useForm } from 'react-hook-form'
-import { useSnackbarStore, useTabsUserStore } from '../../../stores'
-import { quizzesService } from '../../../services'
+import { useSnackbarStore, useTabsUserStore } from '../../stores'
+import { quizzesService } from '../../services'
 
 export function CreateQuiz() {
   const {
