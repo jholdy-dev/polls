@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import SignIn from './pages/sign-in'
 import { useAuthStore } from './stores'
-import Dashboard from './pages/dashboard'
+import Dashboard from './pages/auth/dashboard'
 
 type PrivateRouteProps = {
   Component: React.ReactNode | JSX.Element | any
