@@ -1,4 +1,4 @@
-import { CreateQuizDto, UpdateQuizDto } from '@lib/schema'
+import { AnswerQuizDto, CreateQuizDto, UpdateQuizDto } from '@lib/schema'
 import { HttpService } from './api'
 import { ListService, ServiceResponse } from '../components'
 
@@ -10,6 +10,14 @@ interface GetQuizzesResponse extends ServiceResponse {
 
 class QuizService implements ListService<UpdateQuizDto> {
   constructor(private readonly httpService: HttpService) {}
+  async answerQuiz(data: AnswerQuizDto) {
+    const result = await this.httpService.post<AnswerQuizDto>(
+      '/quizzes/answers',
+      data,
+    )
+    return result
+  }
+
   async update(id: number, data: UpdateQuizDto) {
     const result = await this.httpService.patch<UpdateQuizDto>(
       `/quizzes/${id}`,

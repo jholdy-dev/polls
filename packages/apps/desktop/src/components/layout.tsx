@@ -13,6 +13,8 @@ import Container from '@mui/material/Container'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { MainListItems } from './list-items'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { useAuthStore } from '../stores'
 
 const drawerWidth: number = 240
 
@@ -73,7 +75,7 @@ export function Layout({ children }: DashboardProps) {
   const toggleDrawer = () => {
     setOpen(!open)
   }
-
+  const { logout } = useAuthStore()
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -104,6 +106,9 @@ export function Layout({ children }: DashboardProps) {
           >
             Dashboard
           </Typography>
+          <IconButton onClick={logout} color="inherit">
+            <LogoutIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

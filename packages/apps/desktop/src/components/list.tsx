@@ -29,7 +29,7 @@ export interface ServiceResponse<T = any> {
 
 export interface ListService<T = any> {
   get(page: number, rowsPerPage: number): Promise<ServiceResponse<T>>
-  update(id: number, data: T): Promise<T>
+  answerQuiz(data: T): Promise<T>
   delete(id: string): Promise<T>
 }
 
@@ -135,9 +135,9 @@ export const List: React.FC<ListProps> = ({
     }
   }
 
-  const handleEdit = (id: number) => async (data: any) => {
+  const handleEdit = async (data: any) => {
     try {
-      await service.update(id, data)
+      await service.answerQuiz(data)
       const result = await service.get(controller.page, controller.rowsPerPage)
       setRows(result.data)
       setRowsCount(result.totalCount)
@@ -218,7 +218,7 @@ export const List: React.FC<ListProps> = ({
           onOpen={toggleDrawer(true)}
         >
           {rowEdit?.id && Component && (
-            <Component handleEdit={handleEdit(rowEdit.id)} data={rowEdit} />
+            <Component handleEdit={handleEdit} data={rowEdit} />
           )}
         </SwipeableDrawerStyled>
       </Card>

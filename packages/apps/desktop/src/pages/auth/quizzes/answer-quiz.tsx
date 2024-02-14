@@ -9,6 +9,7 @@ import { Card, CardContent } from '@mui/material'
 import { v4 as uuid } from 'uuid'
 
 export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
+  handleEdit,
   data,
 }) => {
   const {
@@ -22,7 +23,7 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
 
   async function update(dataValidate: AnswerQuizDto) {
     try {
-      console.log('DATA: ', dataValidate)
+      await handleEdit(dataValidate)
     } catch (error) {
       console.error(error)
     }
