@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common'
 import { QuestionsService } from './questions.service'
 import { CreateQuestionDto } from './dto/create-question.dto'
@@ -14,12 +15,14 @@ import { UpdateQuestionDto } from './dto/update-question.dto'
 import { ApiTags } from '@nestjs/swagger'
 import { ZodPipe } from 'src/core/pipes/zod-pipe'
 import { createQuestionDtoSchema, updateQuestionDtoSchema } from '@lib/schema'
+import { AuthGuard } from '../auth/auth.guard'
 
 @ApiTags('questions')
 @Controller('quiz/:quizId/questions')
 export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   create(
     @Param('quizId') quizId: string,
@@ -29,11 +32,13 @@ export class QuestionsController {
     return this.questionsService.create(quizId, createQuestionDto)
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   async findAll(@Param('quizId') quizId: string) {
     return await this.questionsService.findAll(quizId)
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   async findOne(@Param('quizId') quizId: string, @Param('id') id: string) {
     const question = await this.questionsService.findOne(quizId, +id)
@@ -43,6 +48,7 @@ export class QuestionsController {
     return question
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   async update(
     @Param('quizId') quizId: string,
@@ -61,6 +67,7 @@ export class QuestionsController {
     return updatedQuestion
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   async remove(@Param('quizId') quizId: string, @Param('id') id: string) {
     const deletedQuestion = await this.questionsService.remove(quizId, +id)
