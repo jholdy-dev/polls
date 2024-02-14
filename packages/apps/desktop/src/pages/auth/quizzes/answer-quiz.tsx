@@ -21,6 +21,8 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
     resolver: zodResolver(answerQuizDtoSchema),
   })
 
+  console.log('data', data)
+
   async function update(dataValidate: AnswerQuizDto) {
     try {
       await handleEdit(dataValidate)
@@ -52,16 +54,21 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
               <TextField
                 sx={{ display: 'none' }}
                 value={question.id}
-                {...register(`questions.${index}.answer.questionId` as any, {
-                  setValueAs: () => question.id,
-                })}
+                {...register(
+                  `questions.${index}.answers[0].questionId` as any,
+                  {
+                    setValueAs: () => question.id,
+                  },
+                )}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 label="Answer"
-                {...register(`questions.${index}.answer.description` as any)}
+                {...register(
+                  `questions.${index}.answers[0].description` as any,
+                )}
                 error={!!errors.questions?.[index]?.answer?.message}
                 helperText={errors.questions?.[index]?.answer?.message}
               />

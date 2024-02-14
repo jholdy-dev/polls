@@ -8,7 +8,7 @@ export const answerQuizDtoSchema = z.object({
     z.object({
       id: z.number(),
       description: z.string(),
-      answer: createAnswerDtoSchema,
+      answers: createAnswerDtoSchema,
     }),
   ),
 })

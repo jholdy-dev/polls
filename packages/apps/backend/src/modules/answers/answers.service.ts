@@ -16,10 +16,10 @@ export class AnswersService {
     const { questions } = answerQuizDto
     await Promise.all(
       questions.map(async (question) => {
-        const { id, answer } = question
+        const { id, answers } = question
 
         await this.answerModel.create<Answer>({
-          description: answer.description,
+          description: answers.description,
           questionId: id,
         } as Answer)
       }),
