@@ -1,11 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { CreateQuizDto } from './dto/create-quiz.dto'
 import { UpdateQuizDto } from './dto/update-quiz.dto'
 import { QUIZ_REPOSITORY } from 'src/core/constants'
 import { Quiz } from './entities/quiz.entity'
 import { Question } from '../questions/entities/question.entity'
 import { UsersService } from '../users/users.service'
-import { QuestionsService } from '../questions/questions.service'
 
 @Injectable()
 export class QuizzesService {
@@ -13,7 +12,6 @@ export class QuizzesService {
     @Inject(QUIZ_REPOSITORY)
     private readonly quizModel: typeof Quiz,
     private readonly userService: UsersService,
-    private readonly questionService: QuestionsService,
   ) {}
 
   async create(createQuizDto: CreateQuizDto): Promise<Quiz> {
@@ -23,47 +21,62 @@ export class QuizzesService {
         throw new Error('User not found')
       }
 
-      const result = await this.quizModel.create({
-        description: createQuizDto.description,
-        userId: createQuizDto.userId,
-        user,
-        questions: createQuizDto.questions as Question[],
-        name: createQuizDto.name,
-      } as Quiz)
-      const { id } = result['dataValues']
-
-      const newQuestions = await Promise.all(
-        createQuizDto.questions.map(async (question) => {
-          const newQuestion = await this.questionService.create(id, {
-            ...question,
-            quizId: id,
-          })
-          return { ...newQuestion['dataValues'] }
-        }),
+      const result = await this.quizModel.create(
+        {
+          description: createQuizDto.description,
+          userId: createQuizDto.userId,
+          user,
+          questions: createQuizDto.questions as Question[],
+          name: createQuizDto.name,
+        } as Quiz,
+        { include: [Question] },
       )
 
-      const quiz = { ...result['dataValues'], questions: newQuestions }
-
-      return quiz as Quiz
+      return result['dataValues'] as Quiz
     } catch (error) {
       console.log(error)
       throw error
     }
   }
 
-  findAll() {
-    return `This action returns all quizzes`
+  async get(page: number = 1, limit: number = 10): Promise<Quiz[]> {
+    const offset = (page - 1) * limit
+    return await this.quizModel.findAll<Quiz>({
+      offset,
+      limit,
+      include: [Question],
+    })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} quiz`
+  async findOne(id: number): Promise<Quiz | null> {
+    const result = await this.quizModel.findOne<Quiz>({
+      where: { id },
+      include: [Question],
+    })
+
+    if (!result) {
+      return null
+    }
+
+    return result['dataValues']
   }
 
-  update(id: number, _updateQuizDto: UpdateQuizDto) {
-    return `This action updates a #${id} quiz`
+  async update(id: number, updateQuizDto: UpdateQuizDto) {
+    const quiz = await this.findOne(id)
+    if (!quiz) {
+      throw new NotFoundException('Quiz not found')
+    }
+
+    await quiz.update(updateQuizDto as Quiz)
+    return quiz
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} quiz`
+  async remove(id: number) {
+    const quiz = await this.findOne(id)
+    if (!quiz) {
+      throw new NotFoundException('Quiz not found')
+    }
+
+    await quiz.destroy()
   }
 }
