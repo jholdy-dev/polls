@@ -3,6 +3,7 @@ import { Layout, Tabs } from '../../../components'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import EditIcon from '@mui/icons-material/Edit'
+import { CreateUser } from './create-user'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', flex: 1 },
@@ -82,7 +83,7 @@ export default function Users() {
               },
               {
                 labels: 'Create',
-                component: <div>create</div>,
+                component: <CreateUser />,
               },
             ]}
           />

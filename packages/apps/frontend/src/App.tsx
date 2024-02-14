@@ -1,9 +1,10 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import SignIn from './pages/sign-in'
-import { useAuthStore } from './stores'
+import { useAuthStore, useSnackbarStore } from './stores'
 import Dashboard from './pages/auth/dashboard'
 import Users from './pages/auth/users'
+import { Snackbar } from '@mui/material'
 
 type PrivateRouteProps = {
   Component: React.ReactNode | JSX.Element | any
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  const { open, message, closened } = useSnackbarStore()
   const defaultTheme = createTheme()
   const userCache = localStorage.getItem('user')
 
@@ -46,6 +48,12 @@ function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <RouterProvider router={router} />
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={closened}
+        message={message}
+      />
     </ThemeProvider>
   )
 }
