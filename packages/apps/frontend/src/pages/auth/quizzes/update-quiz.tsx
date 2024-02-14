@@ -44,6 +44,10 @@ export const UpdateQuiz: React.FC<ComponentProps<UpdateQuizDto>> = ({
       component="form"
       onSubmit={handleSubmit(update)}
       noValidate
+      style={{
+        overflow: 'hidden',
+        overflowY: 'scroll',
+      }}
       sx={{ mt: 8, p: 2 }}
     >
       <h2>Edit Quiz</h2>

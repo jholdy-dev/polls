@@ -141,6 +141,7 @@ export const List: React.FC<ListProps> = ({
       const result = await service.get(controller.page, controller.rowsPerPage)
       setRows(result.data)
       setRowsCount(result.totalCount)
+      setAnchor(false)
     } catch (error) {
       console.log(error)
     }
