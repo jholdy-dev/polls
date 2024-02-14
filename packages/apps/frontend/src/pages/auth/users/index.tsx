@@ -1,9 +1,10 @@
-import { Button, Paper } from '@mui/material'
-import { Layout, Tabs } from '../../../components'
+import { Paper } from '@mui/material'
+import { Layout, Tabs, useTabsUserStore } from '../../../components'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import EditIcon from '@mui/icons-material/Edit'
 import { CreateUser } from './create-user'
+import { useEffect, useState } from 'react'
+import { userService } from '../../../services'
+import { User } from '@lib/schema'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', flex: 1 },
@@ -11,15 +12,18 @@ const columns: GridColDef[] = [
   { field: 'cpf', headerName: 'CPF', flex: 1 },
 ]
 
-const rows = [
-  { id: 1, name: 'Snow', cpf: '00.000.000-00' },
-  { id: 2, name: 'Lannister', cpf: '00.000.000-00' },
-  { id: 3, name: 'Lannister', cpf: '00.000.000-00' },
-  { id: 4, name: 'Stark', cpf: '00.000.000-00' },
-  { id: 5, name: 'Targaryen', cpf: '00.000.000-00' },
-]
-
 export default function Users() {
+  const [rows, setRows] = useState<User[]>([])
+  const { tab } = useTabsUserStore()
+
+  useEffect(() => {
+    const start = async () => {
+      const data = await userService.get(1, 10)
+      setRows(data)
+    }
+    start()
+  }, [tab])
+
   return (
     <Layout>
       <div>
@@ -38,39 +42,7 @@ export default function Users() {
                 component: (
                   <DataGrid
                     rows={rows}
-                    columns={[
-                      ...columns,
-                      {
-                        field: 'actions',
-                        headerName: 'Actions',
-                        flex: 1,
-                        renderCell: (value) => {
-                          return (
-                            <div>
-                              <Button
-                                variant="contained"
-                                sx={{ mr: 4 }}
-                                onClick={() => {
-                                  console.log('edit', { value })
-                                }}
-                                endIcon={<EditIcon />}
-                              >
-                                Edit
-                              </Button>
-                              <Button
-                                variant="outlined"
-                                onClick={() => {
-                                  console.log('delete', { value })
-                                }}
-                                startIcon={<DeleteForeverIcon />}
-                              >
-                                Delete
-                              </Button>
-                            </div>
-                          )
-                        },
-                      },
-                    ]}
+                    columns={columns}
                     rowSelection={false}
                     initialState={{
                       pagination: {

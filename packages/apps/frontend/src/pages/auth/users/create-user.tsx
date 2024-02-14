@@ -1,24 +1,31 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { User, userSchema } from '@lib/schema'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import Box from '@mui/material/Box'
-import { User, userSchema } from '@lib/schema'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { userService } from '../../../services'
+import { useSnackbarStore, useTabsUserStore } from '../../../stores'
 
 export function CreateUser() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<User>({
     resolver: zodResolver(userSchema),
   })
+  const { setTab } = useTabsUserStore()
+  const { opened } = useSnackbarStore()
 
   async function create(data: User) {
     try {
       await userService.create(data)
       console.log(data)
+      opened('User created!', 'success')
+      reset()
+      setTab('0')
     } catch (error) {
       console.error(error)
     }

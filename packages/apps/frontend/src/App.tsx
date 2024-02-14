@@ -37,7 +37,7 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  const { open, message, closened } = useSnackbarStore()
+  const { open, message, typeMessage, closened } = useSnackbarStore()
   const defaultTheme = createTheme()
   const userCache = localStorage.getItem('user')
 
@@ -50,7 +50,8 @@ function App() {
       <RouterProvider router={router} />
       <Snackbar
         open={open}
-        autoHideDuration={5000}
+        color={typeMessage}
+        autoHideDuration={3000}
         onClose={closened}
         message={message}
       />
