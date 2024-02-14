@@ -79,8 +79,7 @@ export class QuizzesService {
       throw new NotFoundException('Quiz not found')
     }
 
-    await quiz.update(updateQuizDto as Quiz)
-    return quiz
+    await this.quizModel.update(updateQuizDto as Quiz, { where: { id } })
   }
 
   async remove(id: number) {
@@ -89,6 +88,6 @@ export class QuizzesService {
       throw new NotFoundException('Quiz not found')
     }
 
-    await quiz.destroy()
+    await this.quizModel.destroy({ where: { id } })
   }
 }
