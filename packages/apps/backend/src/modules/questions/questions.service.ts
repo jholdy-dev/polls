@@ -15,10 +15,16 @@ export class QuestionsService {
     quizId: string,
     createQuestionDto: CreateQuestionDto,
   ): Promise<Question> {
-    const question = new Question()
-    question.description = createQuestionDto.description
-    question.quizId = quizId
-    return await question.save()
+    const question = {
+      description: createQuestionDto.description,
+      quizId,
+    } as Question
+
+    const result = await this.questionModel.create(question)
+
+    const newQuestion = result['dataValues'] as Question
+
+    return newQuestion
   }
 
   async findAll(quizId: string): Promise<Question[]> {
