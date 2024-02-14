@@ -10,10 +10,11 @@ import {
 import { AnswersService } from './answers.service'
 import { CreateAnswerDto } from './dto/create-answer.dto'
 import { UpdateAnswerDto } from './dto/update-answer.dto'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { ZodPipe } from 'src/core/pipes/zod-pipe'
 import { createAnswerDtoSchema, updateAnswerDtoSchema } from '@lib/schema'
 
+@ApiBearerAuth()
 @ApiTags('answers')
 @Controller('question/:questionId/answers')
 export class AnswersController {
