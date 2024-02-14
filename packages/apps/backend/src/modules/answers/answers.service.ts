@@ -12,7 +12,7 @@ export class AnswersService {
   ) {}
 
   async create(
-    questionId: string,
+    questionId: number,
     createAnswerDto: CreateAnswerDto,
   ): Promise<Answer> {
     const { description } = createAnswerDto
@@ -22,11 +22,11 @@ export class AnswersService {
     } as Answer)
   }
 
-  async findAll(questionId: string): Promise<Answer[]> {
+  async findAll(questionId: number): Promise<Answer[]> {
     return await this.answerModel.findAll({ where: { questionId } })
   }
 
-  async findOne(questionId: string, id: string): Promise<Answer> {
+  async findOne(questionId: number, id: number): Promise<Answer> {
     const answer = await this.answerModel.findOne({ where: { id, questionId } })
     if (!answer) {
       throw new NotFoundException(`Answer with ID ${id} not found`)
@@ -35,8 +35,8 @@ export class AnswersService {
   }
 
   async update(
-    questionId: string,
-    id: string,
+    questionId: number,
+    id: number,
     updateAnswerDto: UpdateAnswerDto,
   ): Promise<Answer> {
     const { description } = updateAnswerDto
@@ -50,7 +50,7 @@ export class AnswersService {
     return updatedAnswer
   }
 
-  async remove(questionId: string, id: string): Promise<void> {
+  async remove(questionId: number, id: number): Promise<void> {
     const rowsAffected = await this.answerModel.destroy({
       where: { id, questionId },
     })

@@ -148,29 +148,6 @@ export class Desktop extends Base {
       contents: '/// <reference types="vite/client" />',
     })
 
-    new SampleFile(this, '.eslintrc.cjs', {
-      contents: [
-        'module.exports = {',
-        '  root: true,',
-        '  env: { browser: true, es2020: true },',
-        '  extends: [',
-        "    'eslint:recommended',",
-        "    'plugin:@typescript-eslint/recommended',",
-        "    'plugin:react-hooks/recommended',",
-        '  ],',
-        "  ignorePatterns: ['dist', '.eslintrc.cjs'],",
-        "  parser: '@typescript-eslint/parser',",
-        "  plugins: ['react-refresh'],",
-        '  rules: {',
-        "    'react-refresh/only-export-components': [",
-        "      'warn',",
-        '      { allowConstantExport: true },',
-        '    ],',
-        '  },',
-        '}',
-      ].join('\n'),
-    })
-
     new SampleFile(this, 'electron-builder.json5', {
       contents: [
         '{',

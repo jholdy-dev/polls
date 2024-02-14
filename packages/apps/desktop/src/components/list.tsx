@@ -202,7 +202,7 @@ export const List: React.FC<ListProps> = ({
         rowsPerPage={controller.rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      <Card style={{ zIndex: 9999 }} key={uuid()}>
+      <Card key={uuid()}>
         <Button onClick={toggleDrawer(true)}>{anchor}</Button>
         <SwipeableDrawerStyled
           sx={{

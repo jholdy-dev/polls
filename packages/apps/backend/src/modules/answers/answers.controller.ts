@@ -22,33 +22,33 @@ export class AnswersController {
 
   @Post()
   create(
-    @Param('questionId') questionId: string,
+    @Param('questionId') questionId: number,
     @Body(new ZodPipe(createAnswerDtoSchema)) createAnswerDto: CreateAnswerDto,
   ) {
     return this.answersService.create(questionId, createAnswerDto)
   }
 
   @Get()
-  findAll(@Param('questionId') questionId: string) {
+  findAll(@Param('questionId') questionId: number) {
     return this.answersService.findAll(questionId)
   }
 
   @Get(':id')
-  findOne(@Param('questionId') questionId: string, @Param('id') id: string) {
+  findOne(@Param('questionId') questionId: number, @Param('id') id: number) {
     return this.answersService.findOne(questionId, id)
   }
 
   @Patch(':id')
   update(
-    @Param('questionId') questionId: string,
-    @Param('id') id: string,
+    @Param('questionId') questionId: number,
+    @Param('id') id: number,
     @Body(new ZodPipe(updateAnswerDtoSchema)) updateAnswerDto: UpdateAnswerDto,
   ) {
     return this.answersService.update(questionId, id, updateAnswerDto)
   }
 
   @Delete(':id')
-  remove(@Param('questionId') questionId: string, @Param('id') id: string) {
+  remove(@Param('questionId') questionId: number, @Param('id') id: number) {
     return this.answersService.remove(questionId, id)
   }
 }

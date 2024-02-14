@@ -1,8 +1,7 @@
 import { Paper } from '@mui/material'
 import { Layout, List, Tabs } from '../../../components'
 import { quizzesService } from '../../../services'
-import { CreateQuiz } from './create-quiz'
-import { UpdateQuiz } from './update-quiz'
+import { AnswerQuiz } from './answer-quiz'
 
 export default function Quizzes() {
   return (
@@ -23,19 +22,15 @@ export default function Quizzes() {
                 component: (
                   <List
                     service={quizzesService}
-                    Component={UpdateQuiz}
+                    Component={AnswerQuiz}
                     fields={[
                       { name: 'Id', field: 'id' },
                       { name: 'Name', field: 'name' },
                       { name: 'Description', field: 'description' },
                     ]}
-                    actions={{ edit: true, remove: true }}
+                    actions={{ edit: true, remove: false }}
                   />
                 ),
-              },
-              {
-                labels: 'Create',
-                component: <CreateQuiz />,
               },
             ]}
           />

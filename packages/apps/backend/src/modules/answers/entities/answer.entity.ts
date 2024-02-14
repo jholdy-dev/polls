@@ -21,7 +21,7 @@ export class Answer extends Model<Answer> {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  questionId: string
+  questionId: number
 
   @BelongsTo(() => Question)
   question: Question
