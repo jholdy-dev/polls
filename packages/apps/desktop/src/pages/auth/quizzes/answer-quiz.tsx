@@ -59,7 +59,9 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
               <TextField
                 sx={{ display: 'none' }}
                 value={question.id}
-                {...register(`questions.${index}.answers.questionId` as any)}
+                {...register(`questions.${index}.answers.questionId` as any, {
+                  setValueAs: (value) => parseInt(value),
+                })}
               />
               <TextField
                 margin="normal"

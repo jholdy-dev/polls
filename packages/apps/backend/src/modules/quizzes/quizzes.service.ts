@@ -24,12 +24,16 @@ export class QuizzesService {
         throw new Error('User not found')
       }
 
+      console.log(createQuizDto.questions)
+
       const result = await this.quizModel.create(
         {
           description: createQuizDto.description,
           userId: createQuizDto.userId,
           user,
-          questions: createQuizDto.questions as Question[],
+          questions: createQuizDto.questions.map((question) => ({
+            description: question.description,
+          })) as Question[],
           name: createQuizDto.name,
         } as Quiz,
         { include: [Question] },
