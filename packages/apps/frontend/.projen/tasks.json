@@ -100,13 +100,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@testing-library/jest-dom,@testing-library/react,@testing-library/user-event,@types/jest,@types/react,@types/react-dom,projen,@emotion/react,@emotion/styled,@fontsource/roboto,@hookform/resolvers,@lib/schema,@mui/icons-material,@mui/material,axios,localforage,match-sorter,react,react-dom,react-hook-form,react-router-dom,sort-by,web-vitals,zustand"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@testing-library/jest-dom,@testing-library/react,@testing-library/user-event,@types/jest,@types/react,@types/react-dom,@types/uuid,projen,@emotion/react,@emotion/styled,@fontsource/roboto,@hookform/resolvers,@lib/schema,@mui/icons-material,@mui/lab,@mui/material,@mui/x-data-grid,axios,localforage,match-sorter,react,react-dom,react-hook-form,react-imask,react-router-dom,sort-by,uuid,web-vitals,zustand"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @testing-library/jest-dom @testing-library/react @testing-library/user-event @types/jest @types/node @types/react @types/react-dom constructs projen typescript @emotion/react @emotion/styled @fontsource/roboto @hookform/resolvers @lib/schema @mui/icons-material @mui/material axios localforage match-sorter react react-dom react-hook-form react-router-dom react-scripts sort-by web-vitals zustand"
+          "exec": "pnpm update @testing-library/jest-dom @testing-library/react @testing-library/user-event @types/jest @types/node @types/react @types/react-dom @types/uuid constructs projen typescript @emotion/react @emotion/styled @fontsource/roboto @hookform/resolvers @lib/schema @mui/icons-material @mui/lab @mui/material @mui/x-data-grid axios localforage match-sorter react react-dom react-hook-form react-imask react-router-dom react-scripts sort-by uuid web-vitals zustand"
         },
         {
           "exec": "npx projen"

@@ -33,6 +33,12 @@ export class Frontend extends ReactTypeScriptProject {
       'axios',
       'zustand',
       '@mui/icons-material',
+      'react-imask',
+      '@mui/x-data-grid',
+      '@mui/lab',
+      'uuid',
     )
+
+    this.addDevDeps('@types/uuid')
   }
 }

@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import SignIn from './pages/sign-in'
 import { useAuthStore } from './stores'
 import Dashboard from './pages/auth/dashboard'
+import Users from './pages/auth/users'
 
 type PrivateRouteProps = {
   Component: React.ReactNode | JSX.Element | any
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <PrivateRoute Component={Dashboard} />,
+  },
+  {
+    path: '/dashboard/users',
+    element: <PrivateRoute Component={Users} />,
   },
 ])
 

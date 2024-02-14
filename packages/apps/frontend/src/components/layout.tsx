@@ -14,7 +14,7 @@ import Container from '@mui/material/Container'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import { mainListItems } from './list-items'
+import { MainListItems } from './list-items'
 
 const drawerWidth: number = 240
 
@@ -127,7 +127,9 @@ export function Layout({ children }: DashboardProps) {
           </IconButton>
         </Toolbar>
         <Divider />
-        <List component="nav">{mainListItems}</List>
+        <List component="nav">
+          <MainListItems />
+        </List>
       </Drawer>
       <Box
         component="main"
