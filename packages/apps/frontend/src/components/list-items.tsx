@@ -13,6 +13,10 @@ export const MainListItems: React.FC = () => {
     navigate('/dashboard/users')
   }
 
+  const goToQuizzes = () => {
+    navigate('/dashboard/quizzes')
+  }
+
   return (
     <React.Fragment>
       <ListItemButton onClick={goToUsers}>
@@ -21,7 +25,7 @@ export const MainListItems: React.FC = () => {
         </ListItemIcon>
         <ListItemText primary="Users" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={goToQuizzes}>
         <ListItemIcon>
           <QuestionAnswerIcon />
         </ListItemIcon>
