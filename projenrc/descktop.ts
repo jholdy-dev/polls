@@ -35,7 +35,28 @@ export class Descktop extends Base {
       preview: 'vite preview',
     })
 
-    this.addDeps('react', 'react-dom', '@lib/schema@file:../../libs/schema')
+    this.addDeps(
+      'react',
+      'react-dom',
+      '@lib/schema@file:../../libs/schema',
+      '@mui/material',
+      '@emotion/react',
+      '@emotion/styled',
+      '@fontsource/roboto',
+      'react-router-dom',
+      'localforage',
+      'match-sorter',
+      'sort-by',
+      'react-hook-form',
+      '@hookform/resolvers',
+      'axios',
+      'zustand',
+      '@mui/icons-material',
+      'react-imask',
+      '@mui/x-data-grid',
+      '@mui/lab',
+      'uuid',
+    )
 
     this.addDevDeps(
       '@types/react',

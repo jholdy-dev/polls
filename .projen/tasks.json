@@ -119,19 +119,19 @@
         }
       ]
     },
-    "desktop:dev": {
-      "name": "desktop:dev",
+    "descktop:dev": {
+      "name": "descktop:dev",
       "steps": [
         {
-          "exec": "cd packages/apps/desktop && pnpm run dev"
+          "exec": "cd packages/apps/descktop && pnpm run dev"
         }
       ]
     },
-    "desktop:test": {
-      "name": "desktop:test",
+    "descktop:test": {
+      "name": "descktop:test",
       "steps": [
         {
-          "exec": "cd packages/apps/desktop && pnpm run test"
+          "exec": "cd packages/apps/descktop && pnpm run test"
         }
       ]
     },

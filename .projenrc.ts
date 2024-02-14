@@ -10,12 +10,12 @@ new Descktop({ parent: root })
 
 new Schema({ parent: root })
 
-root.addTask('desktop:dev', {
-  exec: 'cd packages/apps/desktop && pnpm run dev',
+root.addTask('descktop:dev', {
+  exec: 'cd packages/apps/descktop && pnpm run dev',
 })
 
-root.addTask('desktop:test', {
-  exec: 'cd packages/apps/desktop && pnpm run test',
+root.addTask('descktop:test', {
+  exec: 'cd packages/apps/descktop && pnpm run test',
 })
 
 root.addTask('backend:test', {
