@@ -37,12 +37,24 @@ export class UsersService {
     return result['dataValues']
   }
 
-  async getUsers(page: number = 1, limit: number = 10): Promise<User[]> {
-    const offset = (page - 1) * limit
-    return await this.userRepository.findAll<User>({
+  async getUsers(page: number = 1, limit: number = 10) {
+    const offset = page * limit
+    const result = await this.userRepository.findAll<User>({
       offset,
       limit,
     })
+
+    const count = await this.count()
+
+    return {
+      data: result,
+      page,
+      totalCount: count,
+    }
+  }
+
+  async count(): Promise<number> {
+    return await this.userRepository.count()
   }
 
   async updateOne(id: number, updateUserDto: UserDto): Promise<User> {
