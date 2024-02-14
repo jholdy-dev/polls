@@ -7,6 +7,7 @@ import { Question } from '../questions/entities/question.entity'
 import { UsersService } from '../users/users.service'
 import { CreateQuestionDto } from '@lib/schema'
 import { QuestionsService } from '../questions/questions.service'
+import { Answer } from '../answers/entities/answer.entity'
 
 @Injectable()
 export class QuizzesService {
@@ -51,7 +52,7 @@ export class QuizzesService {
     const result = await this.quizModel.findAll<Quiz>({
       offset,
       limit,
-      include: [Question],
+      include: [{ model: Question, include: [Answer] }],
     })
 
     const count = await this.count()
