@@ -7,12 +7,12 @@ type DescktopProps = {
   parent: TypeScriptAppProject
 }
 
-export class Descktop extends Base {
+export class Desktop extends Base {
   constructor(props: DescktopProps) {
     super({
       ...props,
       name: '@apps/descktop',
-      outdir: 'descktop',
+      outdir: 'desktop',
       defaultReleaseBranch: 'main',
       release: false,
       projenrcTs: true,

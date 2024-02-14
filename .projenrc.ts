@@ -1,4 +1,4 @@
-import { Root, Backend, Frontend, Descktop, Schema } from './projenrc'
+import { Root, Backend, Frontend, Desktop, Schema } from './projenrc'
 
 const root = new Root()
 
@@ -6,7 +6,7 @@ new Backend({ parent: root })
 
 new Frontend({ parent: root })
 
-new Descktop({ parent: root })
+new Desktop({ parent: root })
 
 new Schema({ parent: root })
 
