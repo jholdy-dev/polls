@@ -3,7 +3,7 @@ import { answerQuizDtoSchema, AnswerQuizDto } from '@lib/schema'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { useFieldArray, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { ComponentProps } from '../../../components'
 import { Card, CardContent } from '@mui/material'
 import { v4 as uuid } from 'uuid'
@@ -14,19 +14,11 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm<AnswerQuizDto>({
     defaultValues: data,
     resolver: zodResolver(answerQuizDtoSchema),
   })
-
-  const { fields } = useFieldArray({
-    control,
-    name: 'questions',
-  })
-
-  console.log('ERROR =>', errors)
 
   async function update(dataValidate: AnswerQuizDto) {
     try {
@@ -52,14 +44,15 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
       <strong>Description: {data.description}</strong>
       <Card sx={{ p: 2, mt: 4 }}>
         <h3>Questions</h3>
-        {fields.map((question, index) => (
+        {data.questions.map((question, index) => (
           <Card key={uuid()}>
             <CardContent>
               <h4>{question.description}</h4>
               <TextField
+                sx={{ display: 'none' }}
                 value={question.id}
                 {...register(`questions.${index}.answer.questionId` as any, {
-                  setValueAs: (value) => parseInt(value),
+                  setValueAs: () => question.id,
                 })}
               />
               <TextField
@@ -67,9 +60,9 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
                 required
                 fullWidth
                 label="Answer"
-                {...register(`questions.${index}.answer.message` as any)}
-                error={!!errors.questions?.[index]?.answers?.message}
-                helperText={errors.questions?.[index]?.answers?.message}
+                {...register(`questions.${index}.answer.description` as any)}
+                error={!!errors.questions?.[index]?.answer?.message}
+                helperText={errors.questions?.[index]?.answer?.message}
               />
             </CardContent>
           </Card>

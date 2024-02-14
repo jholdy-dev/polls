@@ -6,7 +6,7 @@ export const answerQuizDtoSchema = z.object({
   description: z.string(),
   questions: z.array(
     z.object({
-      id: z.number().nullable(),
+      id: z.number(),
       description: z.string(),
       answer: createAnswerDtoSchema,
     }),

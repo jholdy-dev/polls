@@ -4,6 +4,7 @@ import { AnswersController } from './answers.controller'
 import { answersProviders } from './answers.providers'
 
 @Module({
+  exports: [AnswersService],
   controllers: [AnswersController],
   providers: [AnswersService, ...answersProviders],
 })

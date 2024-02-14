@@ -3,6 +3,7 @@ import { Answer } from './entities/answer.entity'
 import { CreateAnswerDto } from './dto/create-answer.dto'
 import { UpdateAnswerDto } from './dto/update-answer.dto'
 import { ANSWER_REPOSITORY } from 'src/core/constants'
+import { AnswerQuizDto } from '@lib/schema'
 
 @Injectable()
 export class AnswersService {
@@ -10,6 +11,20 @@ export class AnswersService {
     @Inject(ANSWER_REPOSITORY)
     private readonly answerModel: typeof Answer,
   ) {}
+
+  async answerQuiz(answerQuizDto: AnswerQuizDto): Promise<void> {
+    const { questions } = answerQuizDto
+    await Promise.all(
+      questions.map(async (question) => {
+        const { id, answer } = question
+
+        await this.answerModel.create<Answer>({
+          description: answer.description,
+          questionId: id,
+        } as Answer)
+      }),
+    )
+  }
 
   async create(
     questionId: number,
