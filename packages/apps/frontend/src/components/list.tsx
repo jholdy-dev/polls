@@ -1,14 +1,17 @@
-import { useState, useEffect } from 'react'
+import DeleteIcon from '@mui/icons-material/Delete'
 import {
   Card,
+  IconButton,
   Table,
-  TableHead,
   TableBody,
-  TableRow,
   TableCell,
+  TableHead,
   TablePagination,
+  TableRow,
 } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid'
+import EditIcon from '@mui/icons-material/Edit'
 
 type Controller = {
   page: number
@@ -20,17 +23,27 @@ export interface ServiceResponse {
   totalCount: number
 }
 
-export type ListProps = {
-  service: {
-    get(page: number, rowsPerPage: number): Promise<ServiceResponse>
-  }
-  fields: {
-    name: string
-    field: string
-  }[]
+type Service = {
+  get(page: number, rowsPerPage: number): Promise<ServiceResponse>
 }
 
-export const List: React.FC<ListProps> = ({ service, fields }) => {
+type Field = {
+  name: string
+  field: string
+}
+
+type Actions = {
+  edit: boolean
+  remove: boolean
+}
+
+export type ListProps = {
+  service: Service
+  fields: Field[]
+  actions?: Actions
+}
+
+export const List: React.FC<ListProps> = ({ service, fields, actions }) => {
   const [rows, setRows] = useState<any[]>([])
   const [rowsCount, setRowsCount] = useState(0)
   const [controller, setController] = useState<Controller>({
@@ -78,6 +91,7 @@ export const List: React.FC<ListProps> = ({ service, fields }) => {
             {fields.map((field) => (
               <TableCell key={uuid()}>{field.name}</TableCell>
             ))}
+            {(actions?.edit || actions?.remove) && <TableCell></TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -86,6 +100,24 @@ export const List: React.FC<ListProps> = ({ service, fields }) => {
               {fields.map((field) => (
                 <TableCell key={uuid()}>{row[field.field]}</TableCell>
               ))}
+              {(actions?.edit || actions?.remove) && (
+                <TableCell align="right">
+                  {actions.edit && (
+                    <IconButton
+                      aria-label="delete"
+                      size="small"
+                      sx={{ marginRight: actions.remove ? 2 : 0 }}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                  {actions.remove && (
+                    <IconButton aria-label="delete" size="small">
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

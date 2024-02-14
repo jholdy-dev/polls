@@ -27,6 +27,7 @@ export default function Quizzes() {
                       { name: 'Name', field: 'name' },
                       { name: 'Description', field: 'description' },
                     ]}
+                    actions={{ edit: true, remove: true }}
                   />
                 ),
               },
