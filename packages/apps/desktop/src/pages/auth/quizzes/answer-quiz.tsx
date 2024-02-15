@@ -23,9 +23,10 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
 
   async function update(dataValidate: AnswerQuizDto) {
     try {
+      console.log(dataValidate)
       await handleEdit(dataValidate)
-    } catch (error) {
-      console.error(error)
+    } catch (error: any) {
+      console.error(error.response.data.errors[0])
     }
   }
 
@@ -72,21 +73,22 @@ export const AnswerQuiz: React.FC<ComponentProps<AnswerQuizDto>> = ({
                   `questions.${index}.answers.${question.answers.length}.description` as any,
                 )}
                 error={(() => {
-                  console.log('errors', errors)
-                  if (!errors?.questions) return false
-                  const questionErrors = errors?.questions[index]
-                  if (!questionErrors?.answers) return false
+                  const questionErrors =
+                    errors?.questions && errors?.questions[index]
                   const answerErrors =
+                    questionErrors?.answers &&
                     questionErrors?.answers[question.answers.length]
-                  return !!answerErrors?.message
+
+                  return !!answerErrors?.description?.message
                 })()}
                 helperText={(() => {
-                  if (!errors?.questions) return false
-                  const questionErrors = errors?.questions[index]
-                  if (!questionErrors?.answers) return false
+                  const questionErrors =
+                    errors?.questions && errors?.questions[index]
                   const answerErrors =
+                    questionErrors?.answers &&
                     questionErrors?.answers[question.answers.length]
-                  return answerErrors?.message
+
+                  return answerErrors?.description?.message
                 })()}
               />
             </CardContent>

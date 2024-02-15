@@ -1,7 +1,8 @@
 import { z } from 'zod'
 
 export const createAnswerDtoSchema = z.object({
-  description: z.string(),
+  id: z.number().nullable(),
+  description: z.string().min(5),
   questionId: z.number(),
 })
 
