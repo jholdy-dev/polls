@@ -26,7 +26,12 @@ export class UsersService {
   }
 
   async findOneByCpf(cpf: string): Promise<User | null> {
-    return await this.userRepository.findOne<User>({ where: { cpf } })
+    const result = await this.userRepository.findOne<User>({ where: { cpf } })
+    if (!result) {
+      return null
+    }
+    const { password, ...user } = result['dataValues']
+    return user as User
   }
 
   async findOneById(id: number): Promise<User | null> {
@@ -34,7 +39,8 @@ export class UsersService {
     if (!result) {
       return null
     }
-    return result['dataValues']
+    const { password, ...user } = result['dataValues']
+    return user as User
   }
 
   async getUsers(page: number = 1, limit: number = 10) {
@@ -47,7 +53,10 @@ export class UsersService {
     const count = await this.count()
 
     return {
-      data: result,
+      data: result.map((user) => {
+        const { password, ...result } = user['dataValues']
+        return result as User
+      }),
       page,
       totalCount: count,
     }
@@ -70,7 +79,9 @@ export class UsersService {
     await this.userRepository.update(updateUserDto, {
       where: { id },
     })
-    return user
+    const { password, ...userInfo } = user
+
+    return userInfo as User
   }
 
   async deleteOne(id: number): Promise<void> {
