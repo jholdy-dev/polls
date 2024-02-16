@@ -22,6 +22,12 @@ import {
 import { AuthGuard } from '../auth/auth.guard'
 import { AnswersService } from '../answers/answers.service'
 import { AnswerQuizDto } from './dto/answer-quiz.dto'
+import {
+  GenericResponse,
+  GenericWithPaginationResponse,
+  ReturnSuccess,
+} from 'src/dto/generic-response.dto'
+import { Quiz } from './entities/quiz.entity'
 
 @ApiTags('quizzes')
 @Controller('quizzes')
@@ -40,33 +46,47 @@ export class QuizzesController {
   }
 
   @Post()
-  create(@Body(new ZodPipe(createQuizDtoSchema)) createQuizDto: CreateQuizDto) {
-    return this.quizzesService.create(createQuizDto)
+  async create(
+    @Body(new ZodPipe(createQuizDtoSchema)) createQuizDto: CreateQuizDto,
+  ): Promise<GenericResponse<Quiz>> {
+    const result = await this.quizzesService.create(createQuizDto)
+    return { data: result }
   }
 
   @Get()
   async getUsers(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
-  ) {
-    return this.quizzesService.get(page, limit)
+  ): Promise<GenericWithPaginationResponse<Quiz>> {
+    const quizzes = await this.quizzesService.get(page, limit)
+    return {
+      data: quizzes.data,
+      page,
+      totalCount: quizzes.totalCount,
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.quizzesService.findOne(+id)
+  async findOne(
+    @Param('id') id: string,
+  ): Promise<GenericResponse<Quiz | null>> {
+    const result = await this.quizzesService.findOne(+id)
+    return { data: result }
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body(new ZodPipe(updateQuizDtoSchema)) updateQuizDto: UpdateQuizDto,
-  ) {
-    return this.quizzesService.update(+id, updateQuizDto)
+  ): Promise<ReturnSuccess> {
+    await this.quizzesService.update(+id, updateQuizDto)
+    return { message: 'Quiz updated' }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.quizzesService.remove(+id)
+  async remove(@Param('id') id: string): Promise<ReturnSuccess> {
+    await this.quizzesService.remove(+id)
+
+    return { message: 'Quiz deleted' }
   }
 }
