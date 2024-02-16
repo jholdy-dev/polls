@@ -8,7 +8,7 @@ type GetUsersResponse = {
   totalCount: number
 }
 
-class UserService implements ListService<User> {
+class UserService implements Omit<ListService<User>, 'answerQuiz'> {
   constructor(private readonly httpService: HttpService) {}
   async update(id: number, data: User): Promise<User> {
     const result = await this.httpService.patch<User>(`/users/${id}`, data)
